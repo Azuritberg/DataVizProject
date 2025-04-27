@@ -1,5 +1,5 @@
 
-const Cities = [
+export const Cities = [
   {"name":"Khansaar","id":105,"population":461},
   {"name":"Krzystanopolis","id":192,"population":382},
   {"name":"Asteroid City","id":202,"population":355},
@@ -26,7 +26,7 @@ const Cities = [
   {"name":"Chong Guo","id":959,"population":392}
 ];
 
-const Managers = [
+export const Managers = [
   {"id":1323,"name":"Fatima Johansson"},
   {"id":1609,"name":"Kerstin Rodriguez"},
   {"id":1656,"name":"Maja Shankar"},
@@ -39,7 +39,7 @@ const Managers = [
   {"id":9597,"name":"Stella Dudek"}
 ];
 
-const Producers = [
+export const Producers = [
   {"id":4842,"name":"Gigskaparna"},
   {"id":5011,"name":"Festen AB"},
   {"id":5208,"name":"Trance AB"},
@@ -51,7 +51,7 @@ const Producers = [
   {"id":9543,"name":"Finliret AB"}
 ];
 
-const DJs = [
+export const DJs = [
   {"id":1311,"name":"DJ Prism","managerID":8370,"gender":"theta","ethnicity":"tau"},
   {"id":1528,"name":"DJ Frost","managerID":7909,"gender":"lambda","ethnicity":"psi"},
   {"id":2358,"name":"DJ Vibe","managerID":1609,"gender":"omicron","ethnicity":"tau"},
@@ -89,7 +89,7 @@ const DJs = [
   {"id":9922,"name":"DJ Spark","managerID":8370,"gender":"lambda","ethnicity":"rho"}
 ];
 
-const Gigs = [
+export const Gigs = [
   {"date":"2015-01-01","djID":4310,"cityID":568,"producerID":5011,"cost":95827,"djEarnings":11122,"managerEarnings":4000,"cityEarnings":21271,"producerEarnings":17562,"attendance":218,"price":379},
   {"date":"2015-01-02","djID":1528,"cityID":587,"producerID":5208,"cost":317208,"djEarnings":41000,"managerEarnings":21100,"cityEarnings":57136,"producerEarnings":86344,"attendance":596,"price":429},
   {"date":"2015-01-03","djID":1528,"cityID":568,"producerID":9372,"cost":100751,"djEarnings":11055,"managerEarnings":5200,"cityEarnings":19974,"producerEarnings":14020,"attendance":239,"price":309},

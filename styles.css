@@ -1,0 +1,158 @@
+body { 
+    display: flex; 
+    font-family: sans-serif; 
+    margin: 4rem; 
+    height: 100vh; 
+    background: linear-gradient(180deg, #1e1a5a, #221d60); 
+}
+
+svg { 
+    /*
+    background: #B1B1B1; 
+    border: 1px solid #ccc; */
+
+    background: linear-gradient(180deg, #c5c5c5, #adadad); /* Istället för platt färg */
+    border: 2px solid #3C32BF;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(60, 50, 191, 0.4);
+}
+
+.tooltip { 
+    position: absolute;
+    background: #ffffff; /*rgba(0, 0, 0, 0.3)*/
+    padding: 12px 16px;
+    border: 2px solid #3C32BF;
+    border-radius: 12px; /* rundare hörn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* mjuk skugga */
+    pointer-events: none;
+    font-size: 14px;
+    font-family: 'Rethink', sans-serif; /* modern font */
+    font-weight: 400;
+    color: #1e1a5a; /* mörk textfärg */
+    opacity: 0;
+    /*transition: opacity 0.3s ease; /* fade-in animation */
+    /*transition: all 0.3s ease; /* Smooth fade */
+    transition: all 0.2s ease, transform 0.2s ease;
+    transform: translate(-50%, -120%); /* Pilen anpassas */
+    max-width: 220px;
+    line-height: 1.1;
+    
+}
+
+.tooltip.show {
+    transform: translate(-50%, -130%) scale(1.02);
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+  }
+
+.tooltip strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: #3C32BF; /* DJ-namnet får stark färg */
+}
+    
+
+#filterBox { 
+    display: flex; 
+    flex-direction: column; 
+    width: 20%; 
+    margin: auto 6rem; 
+    color: #B1B1B1;
+}
+
+h2 {
+    font-family: 'Rethink', sans-serif; /* modern font */
+    font-weight: 900;
+    font-size: 2rem;
+}
+
+h2>strong {
+    font-family: 'Rethink', sans-serif; /* modern font */
+    font-weight: 900;
+    font-size: 3.5rem;
+    line-height: 1.4;
+    color: #ABE743;
+}
+
+label { 
+    margin: 0.5rem 0 0.2rem;
+    font-family: 'Rethink Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ABE743;
+}
+
+select { 
+    margin-right: 10px; padding: 5px; 
+
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 1rem;
+    font-family: 'Rethink Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #3C32BF;
+    background: #f0f0ff;
+    border: 2px solid #3C32BF;
+    border-radius: 10px;
+    appearance: none; /* Ta bort standard-pil */
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10"><path fill="%233C32BF" d="M7 10L0 0h14z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    /*transition: all 0.3s ease;*/
+    transition: background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+
+    box-shadow: 0 4px 12px rgba(60, 50, 191, 0.3); 
+    cursor: pointer;
+}
+
+select:hover {
+    background: #e0e0ff;
+    box-shadow: 0 4px 12px rgba(60, 50, 191, 0.3); 
+}
+
+select:focus {
+    outline: none;
+    border-color: #3C32BF;
+    box-shadow: 0 0 0 3px rgba(60, 50, 191, 0.4);
+    background: #e0e0ff;
+}
+
+option {
+    font-family: 'Rethink Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px;
+    background: #f5f5ff;
+    color: #3C32BF;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+option:hover, select option:checked {
+    background-color: #d6d6ff;
+    color: #3C32BF;
+}
+
+
+/*
+select option:hover {
+    background-color: #e0e0ff;
+    color: #3C32BF;
+}*/
+
+
+
+
+
+

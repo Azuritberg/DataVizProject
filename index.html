@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Scatterplot: DJs och Raves</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
+<div id="filterBox">
+  <h2><strong>Scatterplot:</strong><br>DJ:s Inkomst vs<br>Antal Gäster</h2>
 
 
+  
+  <label for="genderFilter">Filtrera kön:</label>
+  <select id="genderFilter">
+    <option value="all">Alla</option>
+  </select>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-    <script src="data.js"></script>
-    <script src="index.js"></script> 
+  <label for="ethnicityFilter">Filtrera etnicitet:</label>
+  <select id="ethnicityFilter">
+    <option value="all">Alla</option>
+  </select>
+
+  <label for="yearFilter">Filtrera år:</label>
+  <select id="yearFilter">
+    <option value="all">Alla</option>
+  </select>
+
+
+</div>
+
+  <svg width="900" height="600"></svg>
+  <div class="tooltip"></div>
+
+  <script src="index.js" type="module"></script>
 </body>
 </html>
