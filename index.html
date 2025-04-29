@@ -14,31 +14,46 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-<div id="filterBox">
-  <h2><strong>Scatterplot:</strong><br>DJ:s Inkomst vs<br>Antal Gäster</h2>
 
+    <div id="wrapper">
+        <div id="title">
+            <h5>Scatterplot</h5>
+            <h1>DJ's Earnings vs Number of Guests</h1>
+        </div>
 
+        <div id="filterContainer">
   
-  <label for="genderFilter">Filtrera kön:</label>
-  <select id="genderFilter">
-    <option value="all">Alla</option>
-  </select>
-
-  <label for="ethnicityFilter">Filtrera etnicitet:</label>
-  <select id="ethnicityFilter">
-    <option value="all">Alla</option>
-  </select>
-
-  <label for="yearFilter">Filtrera år:</label>
-  <select id="yearFilter">
-    <option value="all">Alla</option>
-  </select>
-
-
-</div>
-
-  <svg width="900" height="600"></svg>
-  <div class="tooltip"></div>
+            <div id="leftFilters">
+              <div id="resetFiltersBox">
+                <button id="resetFiltersBtn" class="reset-btn">Clear All</button>
+              </div>
+          
+              <div class="filter-section">
+                <p>Choose Gender</p>
+                <div id="groupFilter" class="button-group"></div>
+              </div>
+          
+              <div class="filter-section">
+                <p>Choose Ethnicity</p>
+                <div id="subGroupFilter" class="button-group"></div>
+              </div>
+            </div>
+          
+            <div id="yearFilterBox">
+              <div class="filter-section">
+                <p>Choose Year</p>
+                <div id="yearFilter" class="button-group"></div>
+              </div>
+            </div>
+          
+            <div id="chartBox">
+              <svg width="900" height="600"></svg>
+              <div class="tooltip"></div>
+            </div>
+          
+        </div>
+          
+    </div>
 
   <script src="index.js" type="module"></script>
 </body>
