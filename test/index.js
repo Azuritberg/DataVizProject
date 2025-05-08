@@ -146,60 +146,105 @@ g.selectAll("g.bar-group")
 // Det betyder att vi skapar ett grupperat stapeldiagram där vi 
 // för varje år har ett block med staplar – en stapel per könskategori per stad. 
 // För tydlighet börjar vi med att välja ett fåtal städer (t.ex. tre första) och ett par år (t.ex. 2019–2021).
-const width = 800;
-const height = 500;
-const innerWidth = width - margin.left - margin.right;
-const innerHeight = height - margin.top - margin.bottom;
+const selectedCities = dataSet2.slice(0, 3); // Första 3 städerna
+const selectedYears = [2019, 2020, 2021];
+const genders = ['lambda', 'omicron', 'theta'];
 
-const cityData = dataSet[0]; // Exempel: Första staden
-const years = cityData.data.map(d => d.year);
-const ethnicities = ['rho', 'tau', 'psi'];
+const flatData = [];
 
-// Skala för x-axeln (år)
+for (const city of selectedCities) {
+    for (const yearData of city.data) {
+        if (selectedYears.includes(yearData.year)) {
+            for (const gender of genders) {
+                flatData.push({
+                    city: city.name,
+                    year: yearData.year,
+                    gender: gender,
+                    value: yearData[gender]
+                });
+            }
+        }
+    }
+}
+
+// Skapa skala för x: år
 const x0 = d3.scaleBand()
-    .domain(years)
+    .domain(selectedYears)
     .range([0, innerWidth])
     .padding(0.2);
 
-// Inre skala för varje stapelgrupp (för olika etniciteter)
+// Skala för varje stad inom varje år
 const x1 = d3.scaleBand()
-    .domain(ethnicities)
+    .domain(selectedCities.map(c => c.name))
     .range([0, x0.bandwidth()])
     .padding(0.05);
 
-// Skala för y-axeln (antal gigs)
+// Inre skala för kön inom varje stad
+const x2 = d3.scaleBand()
+    .domain(genders)
+    .range([0, x1.bandwidth()])
+    .padding(0.05);
+
+// Y-skala
 const y = d3.scaleLinear()
-    .domain([0, d3.max(cityData.data, d => Math.max(d.rho, d.tau, d.psi))])
+    .domain([0, d3.max(flatData, d => d.value)])
     .nice()
     .range([innerHeight, 0]);
 
 const color = d3.scaleOrdinal()
-    .domain(ethnicities)
-    .range(d3.schemeCategory10);
+    .domain(genders)
+    .range(d3.schemeSet2);
 
+svg.selectAll("*").remove(); // Töm SVG innan vi ritar nytt
 const g = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// X-axel
+// Axlar
 g.append("g")
     .attr("transform", `translate(0,${innerHeight})`)
     .call(d3.axisBottom(x0).tickFormat(d3.format("d")));
 
-// Y-axel
 g.append("g")
     .call(d3.axisLeft(y));
 
-// Staplarna
-g.selectAll("g.bar-group")
-    .data(cityData.data)
-    .enter().append("g")
-    .attr("class", "bar-group")
-    .attr("transform", d => `translate(${x0(d.year)},0)`)
-    .selectAll("rect")
-    .data(d => ethnicities.map(key => ({ key, value: d[key] })))
-    .enter().append("rect")
-    .attr("x", d => x1(d.key))
-    .attr("y", d => y(d.value))
-    .attr("width", x1.bandwidth())
-    .attr("height", d => innerHeight - y(d.value))
-    .attr("fill", d => color(d.key));
+// Rektanglar
+selectedYears.forEach(year => {
+    const yearGroup = g.append("g")
+        .attr("transform", `translate(${x0(year)},0)`);
+
+    selectedCities.forEach(city => {
+        const cityGroup = yearGroup.append("g")
+            .attr("transform", `translate(${x1(city.name)},0)`);
+
+        const dataForCityYear = flatData.filter(d => d.year === year && d.city === city.name);
+
+        cityGroup.selectAll("rect")
+            .data(dataForCityYear)
+            .enter().append("rect")
+            .attr("x", d => x2(d.gender))
+            .attr("y", d => y(d.value))
+            .attr("width", x2.bandwidth())
+            .attr("height", d => innerHeight - y(d.value))
+            .attr("fill", d => color(d.gender));
+    });
+});
+
+// Lägg till en legend (frivilligt)
+const legend = svg.append("g")
+    .attr("transform", `translate(${width - 150}, ${margin.top})`);
+
+genders.forEach((gender, i) => {
+    const legendRow = legend.append("g")
+        .attr("transform", `translate(0, ${i * 20})`);
+
+    legendRow.append("rect")
+        .attr("width", 15)
+        .attr("height", 15)
+        .attr("fill", color(gender));
+
+    legendRow.append("text")
+        .attr("x", 20)
+        .attr("y", 12)
+        .text(gender)
+        .attr("font-size", "12px");
+});
