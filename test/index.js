@@ -1,5 +1,6 @@
 import { Gigs, DJs, Producers, Cities } from './data.js';
 
+
 // Grundinställningar
 const svg = d3.select("svg");
 svg.attr("width", 800).attr("height", 500);
