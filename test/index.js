@@ -7,63 +7,7 @@ const margin = { top: 50, right: 50, bottom: 80, left: 100 };
 
 
 
-const width = 800;
-const height = 500;
-const innerWidth = width - margin.left - margin.right;
-const innerHeight = height - margin.top - margin.bottom;
 
-const cityData = dataSet[0]; // Exempel: Första staden
-const years = cityData.data.map(d => d.year);
-const ethnicities = ['rho', 'tau', 'psi'];
-
-// Skala för x-axeln (år)
-const x0 = d3.scaleBand()
-    .domain(years)
-    .range([0, innerWidth])
-    .padding(0.2);
-
-// Inre skala för varje stapelgrupp (för olika etniciteter)
-const x1 = d3.scaleBand()
-    .domain(ethnicities)
-    .range([0, x0.bandwidth()])
-    .padding(0.05);
-
-// Skala för y-axeln (antal gigs)
-const y = d3.scaleLinear()
-    .domain([0, d3.max(cityData.data, d => Math.max(d.rho, d.tau, d.psi))])
-    .nice()
-    .range([innerHeight, 0]);
-
-const color = d3.scaleOrdinal()
-    .domain(ethnicities)
-    .range(d3.schemeCategory10);
-
-const g = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-// X-axel
-g.append("g")
-    .attr("transform", `translate(0,${innerHeight})`)
-    .call(d3.axisBottom(x0).tickFormat(d3.format("d")));
-
-// Y-axel
-g.append("g")
-    .call(d3.axisLeft(y));
-
-// Staplarna
-g.selectAll("g.bar-group")
-    .data(cityData.data)
-    .enter().append("g")
-    .attr("class", "bar-group")
-    .attr("transform", d => `translate(${x0(d.year)},0)`)
-    .selectAll("rect")
-    .data(d => ethnicities.map(key => ({ key, value: d[key] })))
-    .enter().append("rect")
-    .attr("x", d => x1(d.key))
-    .attr("y", d => y(d.value))
-    .attr("width", x1.bandwidth())
-    .attr("height", d => innerHeight - y(d.value))
-    .attr("fill", d => color(d.key));
 
 
 
@@ -133,3 +77,62 @@ svg.selectAll("rect").data()
 
 console.log(dataSet);
 console.log(dataSet2);
+
+
+const width = 800;
+const height = 500;
+const innerWidth = width - margin.left - margin.right;
+const innerHeight = height - margin.top - margin.bottom;
+
+const cityData = dataSet[0]; // Exempel: Första staden
+const years = cityData.data.map(d => d.year);
+const ethnicities = ['rho', 'tau', 'psi'];
+
+// Skala för x-axeln (år)
+const x0 = d3.scaleBand()
+    .domain(years)
+    .range([0, innerWidth])
+    .padding(0.2);
+
+// Inre skala för varje stapelgrupp (för olika etniciteter)
+const x1 = d3.scaleBand()
+    .domain(ethnicities)
+    .range([0, x0.bandwidth()])
+    .padding(0.05);
+
+// Skala för y-axeln (antal gigs)
+const y = d3.scaleLinear()
+    .domain([0, d3.max(cityData.data, d => Math.max(d.rho, d.tau, d.psi))])
+    .nice()
+    .range([innerHeight, 0]);
+
+const color = d3.scaleOrdinal()
+    .domain(ethnicities)
+    .range(d3.schemeCategory10);
+
+const g = svg.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+// X-axel
+g.append("g")
+    .attr("transform", `translate(0,${innerHeight})`)
+    .call(d3.axisBottom(x0).tickFormat(d3.format("d")));
+
+// Y-axel
+g.append("g")
+    .call(d3.axisLeft(y));
+
+// Staplarna
+g.selectAll("g.bar-group")
+    .data(cityData.data)
+    .enter().append("g")
+    .attr("class", "bar-group")
+    .attr("transform", d => `translate(${x0(d.year)},0)`)
+    .selectAll("rect")
+    .data(d => ethnicities.map(key => ({ key, value: d[key] })))
+    .enter().append("rect")
+    .attr("x", d => x1(d.key))
+    .attr("y", d => y(d.value))
+    .attr("width", x1.bandwidth())
+    .attr("height", d => innerHeight - y(d.value))
+    .attr("fill", d => color(d.key));
