@@ -6,11 +6,6 @@ svg.attr("width", 800).attr("height", 500);
 const margin = { top: 50, right: 50, bottom: 80, left: 100 };
 
 
-
-
-
-
-
 /* let dataPoint = {
     name: "cityName",
     id: "cityID",
@@ -23,6 +18,19 @@ const margin = { top: 50, right: 50, bottom: 80, left: 100 };
 //dataSet2 = citites gigs shown by gender split
 let dataSet = []
 let dataSet2 = []
+let dataSetProducersEth = [];
+let dataSetProducersGen = [];
+
+let genders = ["lambda", "theta", "omicron"];
+let ethinicties = ["psi", "rho", "tau"];
+
+let dataSetAvgEarningsGender = [];
+let dataSetAvgEarningsEthnicity = [];
+
+let dataSetTotalGigsGender = [];
+let dataSetTotalGigsEthnicity = [];
+
+
 for (const city of Cities) {
     let cityGigs = Gigs.filter(x => x.cityID == city.id);
     let dataPoint = {
@@ -71,10 +79,10 @@ for (const city of Cities) {
     dataSet.push(dataPoint);
     dataSet2.push(dataPoint2);
 }
-let dataSetProducersEth = [];
-let dataSetProducersGen = [];
+
 for (const producer of Producers) {
-    let producerGigs = Gigs.filter(x => {x.producerID == producer.id});
+    console.log(producer.id)
+    let producerGigs = Gigs.filter(x => {return x.producerID == producer.id});
     let dataPointEth = {
         name: producer.name,
         id: producer.id,
@@ -122,6 +130,18 @@ for (const producer of Producers) {
     dataSetProducersGen.push(dataPointGen);
 }
 console.log(dataSetProducersEth, dataSetProducersGen);
+
+
+for (const gender of genders) {
+    //filter gigs by gender
+    let filteredGigs = Gigs.filter(x => {
+        let gigDj = x.djID;
+        let DJgender = DJs.find(y => y.id == gigDj).gender;
+        return DJgender == gender;
+    });
+    console.log(gender, filteredGigs);
+}
+
 
 
 
