@@ -67,5 +67,7 @@ for (const city of Cities) {
 }
 
 
+svg.selectAll("rect").data()
+
 console.log(dataSet);
 console.log(dataSet2);
