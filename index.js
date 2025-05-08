@@ -1,4 +1,4 @@
-import { Gigs, DJs } from './data.js';
+import { Gigs, DJs, Producers, Cities } from './data.js';
 
 // Grundinställningar
 const svg = d3.select("svg");
@@ -8,7 +8,7 @@ const height = +svg.attr("height");
 const margin = { top: 50, right: 50, bottom: 80, left: 100 };
 
 // Kombinera Gigs och DJs
-const data = Gigs.map(gig => {
+/* const data = Gigs.map(gig => {
   const dj = DJs.find(d => d.id === gig.djID);
   return {
     djName: dj ? dj.name : "unknown",
@@ -18,18 +18,125 @@ const data = Gigs.map(gig => {
     djEarnings: gig.djEarnings,
     year: +gig.date.slice(0,4)
   };
-}).filter(d => d.djGender !== "unknown");
+}).filter(d => d.djGender !== "unknown"); */
+
+//Go through all DJs find their gigs and display avg values
+
+let datasetTest = []
+let datasetTestAvg = []
+let datasetTestAvg2 = []
+
+
+let ethinicties = ["tau", "psi", "rho"]
+let genders = ["theta", "lambda", "omicron"]
+for (const producer of Producers) {
+  let prodGigs = Gigs.filter(x => x.producerID == producer.id);
+  let gigEarnings = prodGigs.map(x => x.djEarnings);
+  console.log(gigEarnings.reduce((pv, cv) => {return pv + cv;}, 0) / gigEarnings.length);
+}
+let rhoSum = 0, psiSum = 0, tauSum = 0;
+for (const city of Cities.filter(x => x.population > 400)) {
+  let djsFromGigs = Gigs.filter(x => x.cityID == city.id).map(x => {return x.djID});
+  let rho = []
+  let psi = []
+  let tau = []
+  for (const djID of djsFromGigs) {
+    let dj = DJs.find(x => x.id == djID)
+    if(dj.gender == "lambda"){
+      rho.push(dj)
+    } else if (dj.gender == "omicron"){
+      psi.push(dj)
+    } else if(dj.gender == "theta"){
+      tau.push(dj);
+    }
+  }
+  rhoSum = rhoSum + rho.length;
+  psiSum = psiSum + psi.length;
+  tauSum = tauSum + tau.length;
+  console.log(city.population, rho.length, psi.length, tau.length);
+}
+console.log(rhoSum, psiSum, tauSum);
+/* for (const e of ethinicties) {
+  let DJFiltEth = DJs.filter(x => x.ethnicity == e).filter(x => x.managerID == 9597);
+  console.log(DJFiltEth);
+  let dataPoint = {
+    ethnicity: e,
+    value: 0
+  }
+  let DJsum;
+  let DJsSum;
+  for (const DJ of DJFiltEth) {
+    let gigsFiltered = Gigs.filter(x => x.djID == DJ.id)
+                        .map(x => {return x.djEarnings});
+    let DJsum = gigsFiltered.reduce((pv, cv) => {return pv + cv;}, 0);
+    dataPoint.value += DJsum / gigsFiltered.length;
+  }
+  dataPoint.value = dataPoint.value/DJFiltEth.length;
+  datasetTestAvg.push(dataPoint);
+}
+for (const g of genders) {
+  let DJFiltGender= DJs.filter(x => x.gender == g);
+  let dataPoint = {
+    gender: g,
+    value: 0
+  }
+  let DJsum;
+  let DJsSum;
+  for (const DJ of DJFiltGender) {
+    let gigsFiltered = Gigs.filter(x => x.djID == DJ.id)
+                        .map(x => {return x.cost});
+    let DJsum = gigsFiltered.reduce((pv, cv) => {return pv + cv;}, 0);
+    dataPoint.value += DJsum / gigsFiltered.length;
+  }
+  dataPoint.value = dataPoint.value/DJFiltGender.length;
+  datasetTestAvg2.push(dataPoint);
+}
+console.log(datasetTestAvg, datasetTestAvg2); */
+
+for (const dj of DJs) {
+  let e = [];
+  let a = [];
+  let dataPoint = {
+    dj: dj,
+    info : {
+      earnings : [],
+      attendees : []
+    }
+  }
+  for (const gig of Gigs) {
+    if(dj.id == gig.djID){
+      e.push(gig.djEarnings);
+      a.push(gig.attendance);
+    }
+    
+  }
+  const aLen = a.length;
+  const eLen = e.length;
+  
+  dataPoint = {
+    dj: dj,
+    info : {
+      earnings : (e.reduce((pv, cv) => {return pv + cv;}, 0) / eLen),
+      attendance : (a.reduce((pv, cv) => {return pv + cv}, 0) / aLen)
+    }
+  }
+  datasetTest.push(dataPoint);
+}
+let data = datasetTest;
+
+
+console.log(datasetTest);
 
 // Skala för x och y
 const x = d3.scaleLinear()
-  .domain([0, d3.max(data, d => d.attendance) + 50])
+  .domain([380, d3.max(data, d => d.info.attendance) + 50])
   .range([margin.left, width - margin.right]);
 
 const y = d3.scaleLinear()
-  .domain([0, d3.max(data, d => d.djEarnings) + 5000])
+  .domain([0, d3.max(data, d => d.info.earnings) + 5000])
   .range([height - margin.bottom, margin.top]);
 
-// Färgkarta för grupp + subgrupp
+/* // Färgkarta för grupp + subgrupp
 const colorMap = {
   "theta-tho": "#3C32BF",
   "theta-psi": "#7C4DFF",
@@ -41,6 +148,12 @@ const colorMap = {
   "omicron-psi": "#C6FF00",
   "omicron-rho": "#AEEA00",
   "unknown-unknown": "#39FFBE"  // Färg för okända DJs #eeeeee
+}; */
+const colorMap = {
+  "tho": "#3C32BF",
+  "psi": "#ABE743",
+  "rho": "#E65151",
+  "unknown-unknown": "#39FFBE"
 };
 
 // Skapa axlar
@@ -113,10 +226,10 @@ const points = svg.selectAll("circle")
   .enter()
   .append("circle")
   .attr("r", 5)
-  .attr("cx", d => x(d.attendance))
-  .attr("cy", d => y(d.djEarnings))
+  .attr("cx", d => x(d.info.attendance))
+  .attr("cy", d => y(d.info.earnings))
   .attr("fill", d => {
-    const key = `${d.djGender}-${d.djEthnicity}`;
+    const key = `${d.dj.ethnicity}`;
     return colorMap[key] || colorMap["unknown-unknown"];  // Använd fallback
   })
   .style("stroke", "#c5c5c5")
@@ -128,8 +241,8 @@ const points = svg.selectAll("circle")
     tooltip.transition().duration(300).style("opacity", 1)
       .on("end", () => tooltip.classed("show", true));
 
-    const group = d.djGender || "unknown Grupp";
-    const subGroup = d.djEthnicity || "unknown Subgrupp";
+    const group = d.dj.gender || "unknown Grupp";
+    const subGroup = d.dj.ethnicity || "unknown Subgrupp";
 
     function capitalize(str) {
         if (!str) return '';
@@ -142,14 +255,14 @@ const points = svg.selectAll("circle")
     }
 
       tooltip.html(`
-      <strong>${d.djName || "Unknown DJ"}</strong><br>
-      Group: ${capitalize(d.djGender) || "Unknown"}<br>
-      Subgroup: ${capitalize(d.djEthnicity)|| "Unknown"}<br>
-      Guests: ${formatNumber(d.attendance)}<br>
-      Earnings: ${formatNumber(d.djEarnings)} SEK
+      <strong>${d.dj.name || "Unknown DJ"}</strong><br>
+      Group: ${capitalize(d.dj.gender) || "Unknown"}<br>
+      Subgroup: ${capitalize(d.dj.ethnicity)|| "Unknown"}<br>
+      Guests: ${formatNumber(d.info.attendance)}<br>
+      Earnings: ${formatNumber(d.info.earnings)} SEK
     `);
 
-    const key = `${d.djGender}-${d.djEthnicity}`;
+    const key = `${d.dj.gender}-${d.dj.ethnicity}`;
     const isUnknown = !(key in colorMap);
 
     d3.select(event.currentTarget)
