@@ -5,9 +5,10 @@ const svg = d3.select("svg");
 svg.attr("width", 800).attr("height", 500);
 const margin = { top: 50, right: 50, bottom: 80, left: 100 };
 
-
-
-
+const width = +svg.attr("width");
+const height = +svg.attr("height");
+const innerWidth = width - margin.left - margin.right;
+const innerHeight = height - margin.top - margin.bottom;
 
 
 
@@ -206,6 +207,15 @@ g.append("g")
 
 g.append("g")
     .call(d3.axisLeft(y));
+
+// Nollinje (valfritt men tydlig)
+g.append("line")
+    .attr("x1", 0)
+    .attr("x2", innerWidth)
+    .attr("y1", y(0))
+    .attr("y2", y(0))
+    .attr("stroke", "gray")
+    .attr("stroke-dasharray", "4,2");
 
 // Rektanglar
 selectedYears.forEach(year => {
