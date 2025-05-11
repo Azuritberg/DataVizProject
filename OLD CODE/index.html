@@ -58,3 +58,179 @@
   <script src="index.js" type="module"></script>
 </body>
 </html>
+
+
+
+<!--
+  <!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  
+   FONTS 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <title>DataViz - Project</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+    <main id="main-container">
+        <section id="section-top">
+           <div class="container-main-one">
+                <h1>Raves and Systemic Injustice</h1>
+                <p class="mainTxt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <img src="/DataVizProject/image/image1.png" alt="Dj image">
+                <p class="img-txt">Photo by Vicky Hladynets on Unsplash</p>
+            </div> 
+        </section>
+
+        <section id="section-two">
+            <div class="container-main-two">
+                <div clss="container-txt-two-right">
+                    <h2>The difference on a global perspective</h2>
+                    <p class="mainTxt1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="container-txt-two-left">
+                    <img src="/DataVizProject/image/image2.png" alt="Dj image">
+                    <p class="img-txt1">Photo by Cord Allman on Unsplash</p>
+                </div>
+             </div> 
+         </section>
+
+         <section id="section-three">
+            <div class="container-main-three">
+                <div clss="container-txt-three">
+                    <h3>Is there a gender or ethnicity DJ earnings gap?</h3>
+                    <p class="mainTxt2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                
+                <div id="chart-one">
+                    <svg id="graph-gender-ethnicity-gap" width="900" height="600"></svg>
+                </div>
+                <div class="btn-chart-one">
+                    <button class="">Gender</button>
+                    <button class="">Ethnicity</button>
+                    <button class="">Over Time</button>
+                    <button class="">Over Time</button>
+                </div>
+             </div> 
+         </section>
+
+         <section id="section-four">
+            <div class="container-main-four">
+                <div clss="container-txt-four">
+                    <h3>Who gets to play the most?</h3>
+                    <p class="mainTxt3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                
+                <div id="chart-two">
+                    <svg id="graph-gender-ethnicity-pay-most" width="900" height="600"></svg>
+                </div>
+                <div class="btn-chart-two">
+                    <button class="">Gender</button>
+                    <button class="">Ethnicity</button>
+                    <button class="">Over Time</button>
+                    <button class="">Over Time</button>
+                </div>
+             </div> 
+         </section>
+
+         <section id="section-five">
+            <div class="container-main-five">
+                <div clss="container-txt-five-right">
+                    <h2>Where do different population groups get gigs?</h2>
+                    <p class="mainTxt4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="container-txt-five-left">
+                    <div class="btn-cities-box">
+                        <p class="btn-txt-cities">Cities</p>
+                        <button></button>
+                    </div>
+                    <div class="btn-gender-eth">
+                        <button>Gender</button>
+                        <button>Ethnicity</button>
+                    </div>
+                </div>
+                <div id="chart-three">
+                    <svg id="graph-gender-ethnicity-population-get-gig" width="900" height="600"></svg>
+                </div>
+             </div> 
+         </section>
+
+         <section id="section-six">
+            <div class="container-main-six">
+                <div clss="container-top-txt-six">
+                    <h2>Do producers hire DJs on merit alone?</h2>
+                    <p class="mainTxt5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="container-main-six-right">
+
+                    <div id="chart-four">
+                        <svg id="graph-gender-ethnicity-producers-hire-DJs" width="900" height="600"></svg>
+                    </div>
+                    
+                    <div class="container-txt-five-left">
+                        <div class="btn-cities-box">
+                            <p class="btn-txt-producer">Producers</p>
+                            <button></button>
+                        </div>
+                        <div class="btn-gender-eth">
+                            <button>Gender</button>
+                            <button>Ethnicity</button>
+                        </div>
+                    </div>
+                </div>
+             </div> 
+         </section>  
+    </main>
+
+  <script src="index.js" type="module"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+     <div id="filterContainer">
+  
+            <div id="leftFilters">
+              <div id="resetFiltersBox">
+                <button id="resetFiltersBtn" class="reset-btn">Clear All</button>
+              </div>
+          
+              <div class="filter-section">
+                <p>Choose Gender</p>
+                <div id="groupFilter" class="button-group"></div>
+              </div>
+          
+              <div class="filter-section">
+                <p>Choose Ethnicity</p>
+                <div id="subGroupFilter" class="button-group"></div>
+              </div>
+            </div>
+          
+            <div id="yearFilterBox">
+              <div class="filter-section">
+                <p>Choose Year</p>
+                <div id="yearFilter" class="button-group"></div>
+              </div>
+            </div>
+          
+            <div id="chartBox">
+              <svg width="900" height="600"></svg>
+              <div class="tooltip"></div>
+            </div>
+          
+        </div>
+-->

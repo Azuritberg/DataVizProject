@@ -1,12 +1,13 @@
 
 
 
+
+
 :root {
     --primary-black: #131313;
     --primary-white: #FAFAFA;
     --primary-background-color: #FFFDF6;
     
-    --primary-btn-grey: #C1BFBF;
     --primary-btn-grey: #C1BFBF;
     --btn-text-blue: #3C32BF;
     --btnActiv-gender: #BE71F5;
@@ -21,28 +22,154 @@
     --gender-omicron: #F034B8;
 }
 
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
-
 body { 
-    display: flex; 
     font-family: "Rethink Sans", sans-serif;
-    margin: 4rem;  
     background-color: var(--primary-background-color);
-    /*background: linear-gradient(180deg, #1e1a5a, #221d60); */
+    color: var(--primary-black);
+    margin: 4rem;
+    display: flex;
+    justify-content: center;
 }
 
-#main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3rem 2rem;
-    margin: auto;
-    gap: 3rem;
+.main {
+    max-width: 960px;
+    width: 100%;
 }
+
+.section {
+    margin-bottom: 6rem;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+p {
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+}
+
+/* Intro Section */
+.intro__image {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.intro__caption {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+/* Global Perspective Section */
+.global__container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.global__text, 
+.global__image-box {
+    flex: 1 1 45%;
+}
+
+.global__image {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.global__caption {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+/* Charts */
+.chart-box {
+    margin-top: 2rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.chart-controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* City & Producer Controls */
+.city-controls, 
+.producer-controls {
+    margin: 1rem 0;
+}
+
+.city-label, 
+.producer-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.city-buttons, 
+.producer-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* == Buttons == */
+.btn-city, 
+.btn-producer {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    background-color: var(--primary-btn-grey);
+    color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-city:hover, 
+.btn-producer:hover {
+    background-color: var(--btn-text-blue);
+    color: var(--primary-white);
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: 'Rethink Sans', sans-serif;
+    background-color: var(--primary-btn-grey);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--btn-text-blue);
+    color: var(--primary-white);
+}
+
