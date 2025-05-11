@@ -52,6 +52,45 @@ export const Producers = [
 ];
 
 export const DJs = [
+  { "id": 1311, "name": "DJ Prism", "managerID": 8370, "gender": "theta", "ethnicity": "tau" },
+  { "id": 1528, "name": "DJ Frost", "managerID": 7909, "gender": "lambda", "ethnicity": "psi" },
+  { "id": 2358, "name": "DJ Vibe", "managerID": 1609, "gender": "omicron", "ethnicity": "tau" },
+  { "id": 2651, "name": "DJ Shadow", "managerID": 1323, "gender": "lambda", "ethnicity": "psi" },
+  { "id": 3084, "name": "DJ Spark", "managerID": 1323, "gender": "omicron", "ethnicity": "tau" },
+  { "id": 3284, "name": "DJ Neon", "managerID": 3151, "gender": "theta", "ethnicity": "rho" },
+  { "id": 3300, "name": "DJ Grand", "managerID": 7787, "gender": "omicron", "ethnicity": "rho" },
+  { "id": 3470, "name": "DJ Mirage", "managerID": 7787, "gender": "theta", "ethnicity": "psi" },
+  { "id": 3779, "name": "DJ Truth", "managerID": 7836, "gender": "omicron", "ethnicity": "rho" },
+  { "id": 4102, "name": "DJ Flash", "managerID": 9597, "gender": "theta", "ethnicity": "rho" },
+  { "id": 4310, "name": "DJ Reactor", "managerID": 7836, "gender": "lambda", "ethnicity": "tau" },
+  { "id": 5089, "name": "DJ Tempo", "managerID": 1609, "gender": "omicron", "ethnicity": "tau" },
+  { "id": 5217, "name": "DJ Pulse", "managerID": 1323, "gender": "lambda", "ethnicity": "tau" },
+  { "id": 5396, "name": "DJ Drix", "managerID": 8370, "gender": "theta", "ethnicity": "psi" },
+  { "id": 5488, "name": "DJ Blaze", "managerID": 1609, "gender": "theta", "ethnicity": "psi" },
+  { "id": 5599, "name": "DJ JeyJey", "managerID": 1609, "gender": "omicron", "ethnicity": "psi" },
+  { "id": 6081, "name": "DJ Echoes", "managerID": 1323, "gender": "lambda", "ethnicity": "tau" },
+  { "id": 6105, "name": "DJ Wave", "managerID": 7787, "gender": "omicron", "ethnicity": "rho" },
+  { "id": 6121, "name": "DJ Nova", "managerID": 1656, "gender": "lambda", "ethnicity": "rho" },
+  { "id": 6314, "name": "DJ Thunder", "managerID": 7787, "gender": "theta", "ethnicity": "rho" },
+  { "id": 6429, "name": "DJ Echo", "managerID": 1656, "gender": "omicron", "ethnicity": "tau" },
+  { "id": 6534, "name": "DJ Kompagniet", "managerID": 7787, "gender": "theta", "ethnicity": "tau" },
+  { "id": 6668, "name": "DJ Static", "managerID": 7787, "gender": "theta", "ethnicity": "rho" },
+  { "id": 6710, "name": "DJ Laser", "managerID": 7836, "gender": "theta", "ethnicity": "tau" },
+  { "id": 7025, "name": "DJ Sonic", "managerID": 3151, "gender": "lambda", "ethnicity": "rho" },
+  { "id": 7267, "name": "DJ Storm", "managerID": 7909, "gender": "lambda", "ethnicity": "psi" },
+  { "id": 8112, "name": "DJ Astro", "managerID": 3151, "gender": "theta", "ethnicity": "tau" },
+  { "id": 8539, "name": "DJ Phantom", "managerID": 7836, "gender": "lambda", "ethnicity": "psi" },
+  { "id": 9131, "name": "DJ Tornado", "managerID": 7836, "gender": "omicron", "ethnicity": "psi" },
+  { "id": 9254, "name": "DJ Finkan", "managerID": 7787, "gender": "omicron", "ethnicity": "rho" },
+  { "id": 9289, "name": "DJ Quantum", "managerID": 1323, "gender": "lambda", "ethnicity": "tau" },
+  { "id": 9374, "name": "DJ Korpen", "managerID": 7836, "gender": "omicron", "ethnicity": "psi" },
+  { "id": 9533, "name": "DJ Yoman", "managerID": 6643, "gender": "theta", "ethnicity": "tau" },
+  { "id": 9714, "name": "DJ Nice", "managerID": 1323, "gender": "lambda", "ethnicity": "psi" },
+  { "id": 9922, "name": "DJ Horizon", "managerID": 8370, "gender": "lambda", "ethnicity": "rho" }
+];
+
+/*
+export const DJs = [
   {"id":1311,"name":"DJ Prism","managerID":8370,"gender":"theta","ethnicity":"tau"},
   {"id":1528,"name":"DJ Frost","managerID":7909,"gender":"lambda","ethnicity":"psi"},
   {"id":2358,"name":"DJ Vibe","managerID":1609,"gender":"omicron","ethnicity":"tau"},
@@ -85,9 +124,9 @@ export const DJs = [
   {"id":9289,"name":"DJ Thunder","managerID":1323,"gender":"lambda","ethnicity":"tau"},
   {"id":9374,"name":"DJ Korpen","managerID":7836,"gender":"omicron","ethnicity":"psi"},
   {"id":9533,"name":"DJ Yoman","managerID":6643,"gender":"theta","ethnicity":"tau"},
-  {"id":9714,"name":"DJ Echo","managerID":1323,"gender":"lambda","ethnicity":"psi"},
+  {"id":9714,"name":"DJ Nice","managerID":1323,"gender":"lambda","ethnicity":"psi"},
   {"id":9922,"name":"DJ Spark","managerID":8370,"gender":"lambda","ethnicity":"rho"}
-];
+];*/
 
 export const Gigs = [
   {"date":"2015-01-01","djID":4310,"cityID":568,"producerID":5011,"cost":95827,"djEarnings":11122,"managerEarnings":4000,"cityEarnings":21271,"producerEarnings":17562,"attendance":218,"price":379},
