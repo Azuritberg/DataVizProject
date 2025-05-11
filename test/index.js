@@ -25,6 +25,19 @@ const innerHeight = height - margin.top - margin.bottom;
 //dataSet2 = citites gigs shown by gender split
 let dataSet = []
 let dataSet2 = []
+let dataSetProducersEth = [];
+let dataSetProducersGen = [];
+
+let genders = ["lambda", "theta", "omicron"];
+let ethinicties = ["psi", "rho", "tau"];
+
+let dataSetAvgEarningsGender = [];
+let dataSetAvgEarningsEthnicity = [];
+
+let dataSetTotalGigsGender = [];
+let dataSetTotalGigsEthnicity = [];
+
+
 for (const city of Cities) {
     let cityGigs = Gigs.filter(x => x.cityID == city.id);
     let dataPoint = {
@@ -74,11 +87,69 @@ for (const city of Cities) {
     dataSet2.push(dataPoint2);
 }
 
+for (const producer of Producers) {
+    console.log(producer.id)
+    let producerGigs = Gigs.filter(x => {return x.producerID == producer.id});
+    let dataPointEth = {
+        name: producer.name,
+        id: producer.id,
+        data: []
+    }
+    let dataPointGen = {
+        name: producer.name,
+        id: producer.id,
+        data: []
+    }
+    for(let i = 0; i < 10; i++){
+        let yearsGigs = producerGigs.filter(x => {
+            let year = new Date(x.date).getFullYear();
+            return year == 2015 + i;
+        });
+        let yearPointEth = {
+            year: 2015 + i,
+            rho:0,
+            tau:0,
+            psi:0,
+        };
+        let yearPointGen = {
+            year: 2015 + i,
+            lambda: 0,
+            omicron: 0,
+            theta: 0,
+        }
+        let djIDs = yearsGigs.map(x => {return x.djID})
+        let eths = djIDs.map(x => {
+            return DJs.find(y => y.id == x).ethnicity;
+        })
+        let genders = djIDs.map(x => {
+            return DJs.find(y => y.id == x).gender;
+        })
+        yearPointGen.theta = genders.filter(x => x == "theta").length;
+        yearPointGen.omicron = genders.filter(x => x == "omicron").length;
+        yearPointGen.lambda = genders.filter(x => x == "lambda").length;
+        dataPointGen.data.push(yearPointGen);
+        yearPointEth.rho = eths.filter(x => x == "rho").length;
+        yearPointEth.psi = eths.filter(x => x == "psi").length;
+        yearPointEth.tau = eths.filter(x => x == "tau").length;
+        dataPointEth.data.push(yearPointEth);
+    }
+    dataSetProducersEth.push(dataPointEth);
+    dataSetProducersGen.push(dataPointGen);
+}
+console.log(dataSetProducersEth, dataSetProducersGen);
 
-svg.selectAll("rect").data()
 
-console.log(dataSet);
-console.log(dataSet2);
+for (const gender of genders) {
+    //filter gigs by gender
+    let filteredGigs = Gigs.filter(x => {
+        let gigDj = x.djID;
+        let DJgender = DJs.find(y => y.id == gigDj).gender;
+        return DJgender == gender;
+    });
+    console.log(gender, filteredGigs);
+}
+
+
 
 
 /*
