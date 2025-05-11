@@ -52,17 +52,17 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 4.5rem;
     margin-bottom: 1rem;
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: 2.8rem;
     margin-bottom: 1rem;
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     margin-bottom: 0.75rem;
 }
 
@@ -106,6 +106,8 @@ p {
 
 /* Charts */
 .chart-box {
+    display: flex;
+    justify-content: center;
     margin-top: 2rem;
     border: 1px solid #ddd;
     padding: 1rem;
@@ -120,25 +122,71 @@ p {
     flex-wrap: wrap;
 }
 
-/* City & Producer Controls */
-.city-controls, 
+/* City & Producer Controls s*/
+
+#city-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.section__header {
+  max-width: 500px;
+}
+
+.section_earn_header {
+  max-width: 1000px;
+}
+
+.section_plays-most_header {
+  max-width: 1000px;
+}
+
+.section_city-gigs_header {
+  max-width: 500px;
+}
+
+.section_producer_header {
+  max-width: 500px;
+}
+
+.city-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2rem 1rem;
+}
+
+#producer-container {
+display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .producer-controls {
-    margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2rem 1rem;
 }
 
 .city-label, 
 .producer-label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--btn-text-blue);
 }
 
 .city-buttons, 
 .producer-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: 0.2rem;
+    margin-top: 0.3rem;
 }
+
+
 
 /* == Buttons == */
 .btn-city, 
@@ -146,7 +194,7 @@ p {
     padding: 6px 12px;
     font-size: 0.9rem;
     background-color: var(--primary-btn-grey);
-    color: black;
+    color: var(--btn-text-blue);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -171,5 +219,14 @@ p {
 .btn:hover {
     background-color: var(--btn-text-blue);
     color: var(--primary-white);
+}
+
+
+/* == Active Buttons == */
+
+.btn-city.active,
+.btn-producer.active {
+  background-color: var(--btn-text-blue);
+  color: var(--primary-white);
 }
 

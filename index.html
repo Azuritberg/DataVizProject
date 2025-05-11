@@ -43,7 +43,7 @@
 
     <!-- SECTION 3: Earnings Gap -->
     <section class="section earnings">
-      <div class="section__header">
+      <div class="section_earn_header">
         <h3>Is there a gender or ethnicity DJ earnings gap?</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
@@ -60,7 +60,7 @@
 
     <!-- SECTION 4: Plays Most -->
     <section class="section plays-most">
-      <div class="section__header">
+      <div class="section_plays-most_header">
         <h3>Who gets to play the most?</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
@@ -77,20 +77,23 @@
 
     <!-- SECTION 5: City Comparison -->
     <section class="section city-gigs">
-      <div class="section__header">
-        <h2>Where do different population groups get gigs?</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      <div class="city-controls">
-        <p class="city-label">Cities</p>
-        <div class="city-buttons"> 
-            <div class="city-buttons"></div> <!-- här skapas knapparna -->
+      <div id="city-container">
+        <div class="section_city-gigs_header">
+          <h2>Where do different population groups get gigs?</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <div class="city-controls">
+          <p class="city-label">Cities</p>
+          <div class="city-buttons"></div> <!-- här knapparna -->
+          
+          <div class="chart-controls">
+            <button class="btn btn--gender">Gender</button>
+            <button class="btn btn--ethnicity">Ethnicity</button>
+          </div>
         </div>
       </div>
-      <div class="chart-controls">
-        <button class="btn btn--gender">Gender</button>
-        <button class="btn btn--ethnicity">Ethnicity</button>
-      </div>
+
       <div class="chart-box">
         <svg id="chart-cities" width="900" height="600"></svg>
       </div>
@@ -98,18 +101,23 @@
 
     <!-- SECTION 6: Producers -->
     <section class="section producers">
-      <div class="section__header">
-        <h2>Do producers hire DJs on merit alone?</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div id="producer-container">
+        <div class="section_producer_header">
+          <h2>Do producers hire DJs on merit alone?</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <div class="producer-controls">
+          <p class="producer-label">Producers</p>
+          <div class="producer-buttons"></div> <!-- här knapparna -->
+        
+          <div class="chart-controls">
+            <button class="btn btn--gender">Gender</button>
+            <button class="btn btn--ethnicity">Ethnicity</button>
+          </div>
+        </div>
       </div>
-      <div class="producer-controls">
-        <p class="producer-label">Producers</p>
-        <div class="producer-buttons"></div> <!-- här skapas knapparna -->
-      </div>
-      <div class="chart-controls">
-        <button class="btn btn--gender">Gender</button>
-        <button class="btn btn--ethnicity">Ethnicity</button>
-      </div>
+
       <div class="chart-box">
         <svg id="chart-producers" width="900" height="600"></svg>
       </div>
