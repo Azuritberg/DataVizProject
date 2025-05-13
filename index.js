@@ -225,7 +225,7 @@ activateOne(".btn-producer");
 function renderEarningsBarChart(data, type = "gender") {
 
   const svg = d3.select("#chart-earnings")
-  svg.selectAll("*").remove(); // Töm SVG innan ritar nytt
+  svg.selectAll("*").remove(); // Tömma SVG och rita nytt
 
   const width = +svg.attr("width");  // +svg = Omvandlar "800" (sträng) till 800 (tal)
   const height = +svg.attr("height");
