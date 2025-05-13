@@ -1,34 +1,7 @@
 
 import { Gigs, DJs, Producers, Cities } from './data.js';
 
-// Skapa alla Grafer här!!
 
-/*
-// Tillfälliga knappar OBS!! vi får ändra detta sedan så vi kan generera alla knappar
-export const cities = ["Agrabah", "Sunnydale", "Rimini", "Karatas", "Asteroid City"]; // importera från data.js
-export const Producers = ["Trance AB", "No Mind AB", "Festen AB", "Gigskaparna", "Xtas Produktioner"];
-
-
-const cityContainer = d3.select(".city-buttons");
-
-cityContainer.selectAll("button")
-  .data(Cities)
-  .enter()
-  .append("button")
-  .attr("class", "btn-city")
-  .text(d => d);
-
-
-
-const producerContainer = d3.select(".producer-buttons");
-
-producerContainer.selectAll("button")
-  .data(Producers)
-  .enter()
-  .append("button")
-  .attr("class", "btn-producer")
-  .text(d => d);
-*/
 let dataSetCitiesEth = []
 let dataSetCitiesGen = []
 let dataSetProducersEth = [];
@@ -43,7 +16,9 @@ let dataSetAvgEarningsEthnicity = [];
 let dataSetTotalGigsGender = [];
 let dataSetTotalGigsEthnicity = [];
 
-//creates dataset where each city is shown by it's gig count broken down in terms of each DJs gender and ethinicity
+
+
+// ==== Creates dataset where each city is shown by it's gig count broken down in terms of each DJs gender and ethinicity ====
 for (const city of Cities) {
     let cityGigs = Gigs.filter(x => x.cityID == city.id);
     let dataPoint = {
@@ -92,7 +67,9 @@ for (const city of Cities) {
     dataSetCitiesEth.push(dataPoint);
     dataSetCitiesGen.push(dataPoint2);
 }
-//same as above but for producers not cities
+
+
+//==== Same as above but for producers not cities ====
 for (const producer of Producers) {
     console.log(producer.id)
     let producerGigs = Gigs.filter(x => {return x.producerID == producer.id});
@@ -146,7 +123,8 @@ console.log(dataSetProducersEth, dataSetProducersGen);
 console.log(dataSetCitiesEth, dataSetCitiesGen)
 
 
-//skapar ett en array filtered gigs som är alla gigsen för ett kön
+
+// ==== Skapar ett en array filtered gigs som är alla gigsen för ett kön ====
 for (const gender of genders) {
     //filter gigs by gender
     let filteredGigs = Gigs.filter(x => {
@@ -187,7 +165,10 @@ console.log(dataSetAvgEarningsGender, dataSetAvgEarningsEthnicity);
 console.log(dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
 
 
-// Tillfälliga knappar OBS!! vi får ändra detta sedan så vi kan generera alla knappar
+
+
+
+// ==== Tillfälliga knappar OBS!! vi får ändra detta sedan så vi kan generera alla knappar ====
 
 // === DATA ARRAYS ===
 const cities = [
@@ -239,3 +220,35 @@ activateOne(".btn-producer");
 
 
 
+
+
+
+
+// Skapa alla Grafer här!!
+
+/*
+// Tillfälliga knappar OBS!! vi får ändra detta sedan så vi kan generera alla knappar
+export const cities = ["Agrabah", "Sunnydale", "Rimini", "Karatas", "Asteroid City"]; // importera från data.js
+export const Producers = ["Trance AB", "No Mind AB", "Festen AB", "Gigskaparna", "Xtas Produktioner"];
+
+
+const cityContainer = d3.select(".city-buttons");
+
+cityContainer.selectAll("button")
+  .data(Cities)
+  .enter()
+  .append("button")
+  .attr("class", "btn-city")
+  .text(d => d);
+
+
+
+const producerContainer = d3.select(".producer-buttons");
+
+producerContainer.selectAll("button")
+  .data(Producers)
+  .enter()
+  .append("button")
+  .attr("class", "btn-producer")
+  .text(d => d);
+*/
