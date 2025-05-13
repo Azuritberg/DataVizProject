@@ -222,7 +222,7 @@ producers.forEach(producer => {
   producerButtonsContainer.appendChild(button);
 });
 
-// === HANDLE ACTIVE BUTTON STATE ===
+// === HANDLE ACTIVE BUTTON ===
 function activateOne(buttonsClass) {
   const buttons = document.querySelectorAll(buttonsClass);
   buttons.forEach(btn => {
