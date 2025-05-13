@@ -190,6 +190,8 @@ console.log(dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
 // Tillfälliga knappar OBS!! vi får ändra detta sedan så vi kan generera alla knappar
 
 // === DATA ARRAYS ===
+
+
 const cities = [
   "Sao Adão", "Agrabah", "Alphaville", "Asteroid City", "Atlantika", "Bagdogski",
   "Belleville", "Brightburn", "Chong Guo", "Ciudad Encantada", "Dunauvarosz",
@@ -201,6 +203,7 @@ const producers = [
   "Banzai AB", "Festen AB", "Filrinet AB", "Gigskaparna", "Nattmingel AB",
   "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
 ];
+
 
 // === CREATE CITY BUTTONS ===
 const cityButtonsContainer = document.querySelector(".city-buttons");
@@ -236,6 +239,25 @@ function activateOne(buttonsClass) {
 // === ACTIVATE CITIES & PRODUCERS ===
 activateOne(".btn-city");
 activateOne(".btn-producer");
+//CHANGE THIS!!
+let width = 800;
+//scale xA for the main X scale
+let xA = d3.scaleBand()
+  .domain(cities)
+  .range([0, width])
+  .paddingInner(0.1);
+
+
+//scale xB for the scale within each subgroup
+let xB = d3.scaleBand()
+  .domain(genders)
+  .range([0, xA.badwidth()])
+  .padding(0.05);
+
+let svgGigsProducers = d3.select("#chart-producers");
+let test = svgGigsProducers.selectAll("rect")
+  .data(dataSetProducersEth);
+console.log(svgGigsProducers);
 
 
 
