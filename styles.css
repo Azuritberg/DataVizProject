@@ -8,10 +8,13 @@
     --primary-white: #FAFAFA;
     --primary-background-color: #FFFDF6;
     
-    --primary-btn-grey: #C1BFBF;
+    --primary-btn-grey: #E1E1E1;
+    --primary-btn-border-grey: #D4D4D4;
     --btn-text-blue: #3C32BF;
     --btnActiv-gender: #BE71F5;
+    --btnActiv-border-gender: #B454F8;
     --btnActiv-ethnicity: #ACFF58;
+    --btnActiv-border-ethnicity: #8EFC20;
 
     --ethnicity-tau: #00F453;
     --ethnicity-psi: #ACFF58;
