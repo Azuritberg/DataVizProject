@@ -220,6 +220,71 @@ activateOne(".btn-producer");
 
 
 
+// === CREATE FUNCTION renderEarningsBarChart ===
+
+function renderEarningsBarChart(data, type = "gender") {
+
+  const svg = d3.select("#chart-earnings")
+  svg.selectAll("*").remove(); // Töm SVG innan ritar nytt
+
+  const width = +svg.attr("width");  // +svg = Omvandlar "800" (sträng) till 800 (tal)
+  const height = +svg.attr("height");
+  const margin = { top: 40, right: 20, bottom: 40, left: 60 };
+
+  const innerWidth = width - margin.left -margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+
+  const chartGroup = svg.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  const categoryXScale = d3.scaleBand()
+    .domain(data.map(d => d[type]))
+    .range([0, innerWidth])
+    .padding(0.2);
+  
+  const earningsYScale = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.earnings)])
+    .nice() // Rundar av skalans max-värde ex. 50.5 blir 51
+    .range([innerHeight, 0]);
+
+  const colorScale = d3.scaleOrdinal()
+    .domain(["lambda", "theta", "omicron", "tau", "psi", "rho"])
+    .range(["#BE71F5", "#5850EE", "#F034B8", "#00F453", "#ACFF58", "#45F5BC"]);
+
+  const yAxis = chartGroup.append("g")
+    .call(d3.axisLeft(earningsYScale));
+  
+  const xAxis = chartGroup.append("g")
+    .attr("transform", `translate(0, ${innerHeight})`)
+    .call(d3.axisBottom(categoryXScale));
+  
+  const chartBars = chartGroup.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", d => categoryXScale(d[type]))
+    .attr("y", d => earningsYScale(d.earnings))
+    .attr("width", categoryXScale.bandwidth())
+    .attr("height", d => innerHeight - earningsYScale(d.earnings))
+    .attr("fill", d => colorScale(d[type]));
+
+
+
+}
+
+
+// Rendera genomsnittliga inkomster efter kön:
+renderEarningsBarChart(dataSetAvgEarningsGender, "gender");
+
+// Eller för etnicitet:
+renderEarningsBarChart(dataSetAvgEarningsEthnicity, "ethinicity");
+
+
+
+
+
+
+
 
 
 
@@ -252,3 +317,5 @@ producerContainer.selectAll("button")
   .attr("class", "btn-producer")
   .text(d => d);
 */
+
+
