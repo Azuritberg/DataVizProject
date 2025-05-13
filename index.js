@@ -29,8 +29,8 @@ producerContainer.selectAll("button")
   .attr("class", "btn-producer")
   .text(d => d);
 */
-let dataSet = []
-let dataSet2 = []
+let dataSetCitiesEth = []
+let dataSetCitiesGen = []
 let dataSetProducersEth = [];
 let dataSetProducersGen = [];
 
@@ -89,8 +89,8 @@ for (const city of Cities) {
         yearPoint.tau = eths.filter(x => x == "tau").length;
         dataPoint.data.push(yearPoint);
     }
-    dataSet.push(dataPoint);
-    dataSet2.push(dataPoint2);
+    dataSetCitiesEth.push(dataPoint);
+    dataSetCitiesGen.push(dataPoint2);
 }
 //same as above but for producers not cities
 for (const producer of Producers) {
@@ -143,7 +143,7 @@ for (const producer of Producers) {
     dataSetProducersGen.push(dataPointGen);
 }
 console.log(dataSetProducersEth, dataSetProducersGen);
-console.log(dataSet, dataSet2)
+console.log(dataSetCitiesEth, dataSetCitiesGen)
 
 
 //skapar ett en array filtered gigs som är alla gigsen för ett kön
