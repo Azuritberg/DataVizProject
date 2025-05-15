@@ -230,6 +230,7 @@ display: flex;
     font-family: 'Rethink Sans', sans-serif;
     border: 1px solid var(--primary-btn-border-grey);
     background-color: var(--primary-btn-grey);
+    color: var(--btn-text-blue);
     cursor: pointer;
     transition: all 0.2s ease;
 }
