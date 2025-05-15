@@ -8,7 +8,7 @@ let dataSetProducersEth = [];
 let dataSetProducersGen = [];
 
 let genders = ["lambda", "theta", "omicron"];
-let ethinicties = ["psi", "rho", "tau"];
+let ethnicties = ["psi", "rho", "tau"];
 
 let dataSetAvgEarningsGender = [];
 let dataSetAvgEarningsEthnicity = [];
@@ -143,20 +143,20 @@ for (const gender of genders) {
         totalGigs : genderedGigs
     });
 }
-for (const ethinicity of ethinicties) {
+for (const ethnicity of ethnicties) {
     let filteredGigs = Gigs.filter(x => {
         let gigDj = x.djID;
         let DJethnicity = DJs.find(y => y.id == gigDj).ethnicity;
-        return DJethnicity == ethinicity;
+        return DJethnicity == ethnicity;
     });
     let gigEarnings = filteredGigs.map(x => x.djEarnings).reduce((cv, pv) => {return cv + pv}, 0) / filteredGigs.length;
     let genderedGigs = filteredGigs.length;
     dataSetAvgEarningsEthnicity.push({
-        ethinicity: ethinicity,
+        ethnicity: ethnicity,
         earnings: gigEarnings
     });
     dataSetTotalGigsEthnicity.push({
-        ethnicity: ethinicity,
+        ethnicity: ethnicity,
         totalGigs: genderedGigs
     });
 }
@@ -250,13 +250,16 @@ function renderEarningsBarChart(data, type = "gender") {
     .domain(["lambda", "theta", "omicron", "tau", "psi", "rho"])
     .range(["#BE71F5", "#5850EE", "#F034B8", "#00F453", "#ACFF58", "#45F5BC"]);
 
+   // Y-axel
   const yAxis = chartGroup.append("g")
     .call(d3.axisLeft(earningsYScale));
   
+  // X-axel
   const xAxis = chartGroup.append("g")
     .attr("transform", `translate(0, ${innerHeight})`)
     .call(d3.axisBottom(categoryXScale));
   
+  // Staplar - BARS
   const chartBars = chartGroup.selectAll(".bar")
     .data(data)
     .enter()
@@ -267,17 +270,38 @@ function renderEarningsBarChart(data, type = "gender") {
     .attr("width", categoryXScale.bandwidth())
     .attr("height", d => innerHeight - earningsYScale(d.earnings))
     .attr("fill", d => colorScale(d[type]));
-
-
-
+  
+  // Titel
+  const title = chartGroup.append("text")
+    .attr("x", width / 2)
+    .attr("y", 25)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "1rem")
+    .text(`Avarage Dj Earnings by ${type === "gender" ? "Gender" : "Ethnicity"}`);
+    
 }
 
 
+// === Event listeners för knappar ===
+document.querySelector(".btn--gender").addEventListener("click", () => {
+  renderEarningsBarChart(dataSetAvgEarningsGender, "gender");
+});
+/*
+document.querySelector(".btn--ethnicity").addEventlistnier("click", () => {
+  renderEarningsBarChart(dataSetAvgEarningsEthnicity, "ethnicity");  
+})
+
+// === Start med Data från GENDER ===
+renderEarningsBarChart(dataSetAvgEarningsGender, "gender");*/
+
+
+
+
 // Rendera genomsnittliga inkomster efter kön:
-renderEarningsBarChart(dataSetAvgEarningsGender, "gender");
+//renderEarningsBarChart(dataSetAvgEarningsGender, "gender");
 
 // Eller för etnicitet:
-renderEarningsBarChart(dataSetAvgEarningsEthnicity, "ethinicity");
+//renderEarningsBarChart(dataSetAvgEarningsEthnicity, "ethinicity");
 
 
 
@@ -287,7 +311,9 @@ renderEarningsBarChart(dataSetAvgEarningsEthnicity, "ethinicity");
 
 
 
-
+/*  if (document.querySelector(".btn--gender").classList.contains("active")) {
+    renderEarningsBarChart(dataSetAvgEarningsGender, "gender");
+  }*/
 
 // Skapa alla Grafer här!!
 
