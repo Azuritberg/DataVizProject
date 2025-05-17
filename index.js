@@ -179,7 +179,7 @@ const cities = [
 ];
 
 const producers = [
-  "Banzai AB", "Festen AB", "Filrinet AB", "Gigskaparna", "Nattmingel AB",
+  "Banzai AB", "Festen AB", "Finliret AB", "Gigskaparna", "Nattmingel AB",
   "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
 ];
 
