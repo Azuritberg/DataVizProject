@@ -99,37 +99,6 @@ position: sticky;
 /*
 #ellipse-div {
   width: 50%;
-  height: 9%;
-  position: sticky;
-  top: 32rem;
-  left: -4rem;
-  border-radius: 50%;
-  z-index: -10;
-
-  background: linear-gradient(270deg, #FF753E, #FCFF3E, #3EAFFF, #3E85FF);
-  background-size: 800% 800%;
-  animation: gradientShift 12s ease infinite;
-
-  box-shadow: 0px 0px 165px 400px rgba(255, 117, 62, 0.5); /* mild glow 
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-
-
-/*
-#ellipse-div {
-  width: 50%;
   height: 250px;
   position: sticky; /*position: relative;
   box-shadow: 0px 0px 165px 400px #FF753E;
@@ -337,42 +306,84 @@ display: flex;
     color: var(--primary-white);
 }
 
-
+/* == First GRAPH == */
 /* === GENDER === */
-.btn--gender.gender-active {
+.btn--earn--gender.gender-active {
   background-color: var(--btnActiv-gender);
   color: var(--primary-white);
   border-color: var(--btnActiv-border-gender);
 }
 
-.btn-over-time.gender-active,
-.btn-over-all.gender-active {
+.btn-over-time-earn.gender-active,
+.btn-over-all-earn.gender-active {
   background-color: var(--btnActiv-gender);
   color: var(--primary-white);
   border-color: var(--btnActiv-border-gender);
 }
 
 /* === ETHNICITY === */
-.btn--ethnicity.ethnicity-active {
+.btn--earn--ethnicity.ethnicity-active {
   background-color: var(--btnActiv-ethnicity);
   color: var(--btn-text-blue);
   border-color: var(--btnActiv-border-ethnicity);
 }
 
-.btn-over-time.ethnicity-active,
-.btn-over-all.ethnicity-active {
+.btn-over-time-earn.ethnicity-active,
+.btn-over-all-earn.ethnicity-active {
   background-color: var(--btnActiv-ethnicity);
   color: var(--btn-text-blue);
   border-color: var(--btnActiv-border-ethnicity);
 }
 
-.btn--gender.gender-active,
-.btn--ethnicity.ethnicity-active,
-.btn-over-time.active,
-.btn-over-all.active {
+.btn--earn--gender.gender-active,
+.btn--earn--ethnicity.ethnicity-active,
+.btn-over-time-earn.active,
+.btn-over-all-earn.active {
   /* This ensures selected mode buttons always look active */
   font-weight: 500;
 }
+
+
+/* == Second GRAPH == */
+/* === GENDER === */
+.btn--gigs--gender.gender-active {
+  background-color: var(--btnActiv-gender);
+  color: var(--primary-white);
+  border-color: var(--btnActiv-border-gender);
+}
+
+.btn-over-time-gigs.gender-active,
+.btn-over-all-gigs.gender-active {
+  background-color: var(--btnActiv-gender);
+  color: var(--primary-white);
+  border-color: var(--btnActiv-border-gender);
+}
+
+/* === ETHNICITY === */
+.btn--gigs--ethnicity.ethnicity-active {
+  background-color: var(--btnActiv-ethnicity);
+  color: var(--btn-text-blue);
+  border-color: var(--btnActiv-border-ethnicity);
+}
+
+.btn-over-time-gigs.ethnicity-active,
+.btn-over-all-gigs.ethnicity-active {
+  background-color: var(--btnActiv-ethnicity);
+  color: var(--btn-text-blue);
+  border-color: var(--btnActiv-border-ethnicity);
+}
+
+.btn--gigs--gender.gender-active,
+.btn--gigs--ethnicity.ethnicity-active,
+.btn-over-time-gigs.active,
+.btn-over-all-gigs.active {
+  /* This ensures selected mode buttons always look active */
+  font-weight: 500;
+}
+
+
+
+
 
 
 
