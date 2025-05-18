@@ -427,6 +427,7 @@ let currentSource = null;   // city eller producer eller null
 let currentID = null;       // ID vid city/producer
 
 
+// === Event listeners för earnings-knapparna ===
 document.querySelector(".btn--gender").addEventListener("click", () => {
   currentType = currentType === "gender" ? null : "gender"; 
   updateChart();
@@ -449,7 +450,7 @@ document.querySelector(".btn-over-all").addEventListener("click", () => {
 
 
 
-
+// == FUNKTION TILL ATT UPPDATERA GRAFEN ==
 function updateChart() {
 
   // === Ta bort alla knappar först ===
@@ -514,6 +515,13 @@ document.querySelectorAll(modeBtnClass).forEach(btn => {
 }
 
 updateChart(); // Renderar sidan när den laddas
+
+
+
+
+
+
+
 
 
 
