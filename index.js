@@ -200,7 +200,7 @@ const cities = [
 ];
 
 const producers = [
-  "Banzai AB", "Festen AB", "Filrinet AB", "Gigskaparna", "Nattmingel AB",
+  "Banzai AB", "Festen AB", "Finliret AB", "Gigskaparna", "Nattmingel AB",
   "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
 ];
 
@@ -239,8 +239,41 @@ function activateOne(buttonsClass) {
 // === ACTIVATE CITIES & PRODUCERS ===
 activateOne(".btn-city");
 activateOne(".btn-producer");
+
+
+function getMaxValueDataset(type, dataset){
+  let yMax = 0;
+  for (const t of type) {
+    let arrayCollection = dataset.map(x => x.data).map(x => x.map(y => y[t]));
+    for (const array of arrayCollection) {
+      let y = array.reduce((pv, cv) => Math.max(pv, cv), -Infinity);
+      if(y > yMax) yMax = y;
+    }
+  }
+  return yMax;
+}
+function yearsToAllTimeDataset(type, type2, dataset){
+  let objs = [];
+  for (const t2 of type2) {
+    let datamap = dataset.filter(x => x.name == t2).map(x => x.data)[0];
+    
+    let obj = {
+      type: t2,
+    }
+    for (const t of type) {
+      let objectData = datamap.map(x => x[t]).reduce((pv, cv) => pv + cv, 0);
+      obj[t] = objectData
+      console.log(t2,t, objectData)
+    }
+    objs.push(obj);
+  }
+  return objs
+}
+console.log(yearsToAllTimeDataset(ethinicties, producers, dataSetProducersEth))
+let testData = yearsToAllTimeDataset(ethinicties, producers, dataSetProducersEth);
 //CHANGE THIS!!
 let width = 800;
+let height = 500;
 //scale xA for the main X scale
 let xA = d3.scaleBand()
   .domain(cities)
@@ -251,8 +284,12 @@ let xA = d3.scaleBand()
 //scale xB for the scale within each subgroup
 let xB = d3.scaleBand()
   .domain(genders)
-  .range([0, xA.badwidth()])
+  .range([0, xA.bandwidth()])
   .padding(0.05);
+
+let y = d3.scaleLinear()
+  .domain([0, d3.max(testData, d => Math.max((d.psi, d.tau, d.rho)))])
+  .
 
 let svgGigsProducers = d3.select("#chart-producers");
 let test = svgGigsProducers.selectAll("rect")
