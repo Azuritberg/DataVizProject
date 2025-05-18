@@ -477,10 +477,6 @@ let currentModeGraphEarnings = "average";      // "average" eller "time"
 //let currentType = null;     // gender eller ethnicity eller null
 //let currentMode = null;     // average eller time eller null
 
-// btn--earn--gender
-// btn--earn--ethnicity
-// btn-over-time-earn
-// btn-over-all-earn
 
 // === Event listeners för earnings-knapparna ===
 document.querySelector(".btn--earn--gender").addEventListener("click", () => {
