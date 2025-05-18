@@ -229,7 +229,7 @@ activateOne(".btn-producer");
 
 // === CREATE FUNCTION renderEarningsBarChart === Som skapar stapeldiagram och linjediagram ===
 
-function renderEarningsBarChart(data, type = "gender", mode = "average") {
+function renderEarningsGraphChart(data, type = "gender", mode = "average") {
 
   const svg = d3.select("#chart-earnings");
   svg.selectAll("*").remove();  // Tömma SVG och rita nytt
@@ -511,7 +511,7 @@ document.querySelectorAll(modeBtnClass).forEach(btn => {
   }
 
   // === Rendera diagrammet ===
-  renderEarningsBarChart(data, currentType, currentMode);
+  renderEarningsGraphChart(data, currentType, currentMode);
 }
 
 updateChart(); // Renderar sidan när den laddas
