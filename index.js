@@ -203,6 +203,16 @@ function yearsToAllTimeDataset(type, type2, dataset){
 
 
 
+// == FUNKTION TILL ATT TRANSFORMERA DATA (linjegraf) ==
+function transformToLineData(data, categories) {
+  return categories.map(category => ({
+    category,
+    values: data.map(d => ({
+      year: d.year,
+      value: d[category]
+    }))
+  }));
+}
 
 
 
@@ -455,18 +465,6 @@ function renderEarningsGraphChart(data, type = "gender", mode = "average") {
       : `Shows income trend per ${type === "gender" ? "gender group" : "ethnic group"} over time.`);
 }
 
-
-
-// == FUNKTION TILL ATT TRANSFORMERA DATA (linjegraf) ==
-function transformToLineData(data, categories) {
-  return categories.map(category => ({
-    category,
-    values: data.map(d => ({
-      year: d.year,
-      value: d[category]
-    }))
-  }));
-}
 
 
 
