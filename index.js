@@ -582,7 +582,7 @@ updateEarningsChart(); // Renderar sidan när den laddas
 
 
 
-// == ANDRA GRAFEN BÖRJAR ==
+// ========================= ANDRA GRAFEN BÖRJAR =======================================================
 
 
 
@@ -814,6 +814,7 @@ updateGigsChart();
 
 
 
+// ================================ ANDRA GRAFEN SLUTAR ===========================================
 
 
 
