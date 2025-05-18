@@ -65,7 +65,7 @@ position: sticky;
   /*position: relative;*/
 }
 
-/* Glow-lager */
+/* DIV med Glow - färger i bakgrunden */
 #ellipse-div::before {
   content: "";
   position: absolute;
