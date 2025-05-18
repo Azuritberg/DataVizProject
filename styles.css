@@ -2,7 +2,7 @@
 
 
 
-
+/** VARIABLES */
 :root {
     --primary-black: #131313;
     --primary-white: #FAFAFA;
@@ -192,7 +192,7 @@ p {
     flex-wrap: wrap;
 }
 
-/* City & Producer Controls s*/
+/* City & Producer Controls */
 
 #city-container {
   display: flex;
@@ -339,8 +339,7 @@ display: flex;
 .btn--earn--ethnicity.ethnicity-active,
 .btn-over-time-earn.active,
 .btn-over-all-earn.active {
-  /* This ensures selected mode buttons always look active */
-  font-weight: 500;
+  font-weight: 500;  /* Selected mode buttons always look active = lite fetare font */
 }
 
 
@@ -377,45 +376,7 @@ display: flex;
 .btn--gigs--ethnicity.ethnicity-active,
 .btn-over-time-gigs.active,
 .btn-over-all-gigs.active {
-  /* This ensures selected mode buttons always look active */
-  font-weight: 500;
+  font-weight: 500;  /* Selected mode buttons always look active = lite fetare font */
 }
 
 
-
-
-
-
-
-
-/*
-
-/* === Active buttons for Gender/Ethnicity + Mode === 
-
-.btn--gender.active {
-  background-color: var(--btnActiv-gender);
-  border-color: var(--btnActiv-border-gender);
-  color: var(--primary-white);
-}
-
-.btn--ethnicity.active {
-  background-color: var(--btnActiv-ethnicity);
-  border-color: var(--btnActiv-border-ethnicity);
-  color: var(--btn-text-blue);
-}
-
-/* Gender Active Buttons 
-.btn-over-time.active,
-.btn-over-all.active {
-  background-color: var(--btnActiv-gender);
-  color: var(--primary-white);
-  border-color: var(--btnActiv-border-gender);
-}
-
-/* Ethnicity Active Buttons 
-.btn-over-time.active,
-.btn-over-all.active {
-  background-color: var(--btnActiv-ethnicity);
-  color: var(--btn-text-blue);
-  border-color: var(--btnActiv-border-ethnicity);
-}*/
