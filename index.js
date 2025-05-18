@@ -239,7 +239,7 @@ function renderEarningsGraphChart(data, type = "gender", mode = "average") {
   // SVG-storleken och definierar marginaler för axlar och text.
   const width = +svg.attr("width");   // +svg = Omvandlar "800" (sträng) till 800 (tal)
   const height = +svg.attr("height");
-  const margin = { top: 40, right: 20, bottom: 50, left: 60 };
+  const margin = { top: 50, right: 20, bottom: 50, left: 50 };
 
   // Definerar utrymmet inre ritområdet – utrymmet där själva diagrammet får plats.
   const innerWidth = width - margin.left - margin.right;
@@ -380,7 +380,7 @@ function renderEarningsGraphChart(data, type = "gender", mode = "average") {
     // En text-element i SVG. Skapar en dynamisk rubrik högst upp i grafen som visar vilken typ av graf som visas.
     const graphTitle = svg.append("text")
       .attr("x", width / 2)
-      .attr("y", 25)
+      .attr("y", 15)
       .attr("text-anchor", "middle")
       .attr("font-size", "1rem")
       .text(mode === "average"
@@ -389,7 +389,7 @@ function renderEarningsGraphChart(data, type = "gender", mode = "average") {
 
     const chartSubtitle = svg.append("text")
     .attr("x", width / 2)
-    .attr("y", 45)  // Lite under huvudrubriken
+    .attr("y", 30)  // Lite under huvudrubriken
     .attr("text-anchor", "middle")
     .attr("font-size", "0.8rem")
     .attr("fill", "#666")
@@ -416,15 +416,15 @@ function transformToLineData(data, categories) {
 
 
 
-//let currentType = "gender";       // "gender" eller "ethnicity"
-//let currentMode = "average";      // "average" eller "time"
+let currentType = "ethnicity";       // "gender" eller "ethnicity"
+let currentMode = "average";      // "average" eller "time"
 //let currentSource = "";           //  "city", "producer"
 //let currentID = null;             // ID vid city/producer
 
-let currentType = null;     // gender eller ethnicity eller null
-let currentMode = null;     // average eller time eller null
-let currentSource = null;   // city eller producer eller null
-let currentID = null;       // ID vid city/producer
+//let currentType = null;     // gender eller ethnicity eller null
+//let currentMode = null;     // average eller time eller null
+//let currentSource = null;   // city eller producer eller null
+//let currentID = null;       // ID vid city/producer
 
 
 // === Event listeners för earnings-knapparna ===
@@ -516,6 +516,14 @@ document.querySelectorAll(modeBtnClass).forEach(btn => {
 
 updateChart(); // Renderar sidan när den laddas
 
+
+
+
+
+
+
+
+
 function getMaxValueDataset(type, dataset){
   let yMax = 0;
   for (const t of type) {
@@ -527,6 +535,8 @@ function getMaxValueDataset(type, dataset){
   }
   return yMax;
 }
+
+
 function yearsToAllTimeDataset(type, type2, dataset){
   let objs = [];
   for (const t2 of type2) {
