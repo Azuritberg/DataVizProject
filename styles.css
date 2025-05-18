@@ -47,16 +47,91 @@ body {
 }
 
 #ellipse-div {
+  position: sticky;
+  width: 50%;
+  height: 9%;
+  top: 35rem;
+  left: -4rem;
+  border-radius: 50%;
+  z-index: -10;
+  overflow: visible;
+  /*position: relative;*/
+}
+
+/* Glow-lager */
+#ellipse-div::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  width: 300%;
+  height: 300%;
+  border-radius: 50%;
+  background: linear-gradient(270deg, #FF753E, #FCFF3E, #3EAFFF, #3E85FF, #BFFF3E, #FF423E);
+  background-size: 800% 800%;
+  animation: gradientShift 35s ease infinite;
+  filter: blur(120px);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/*
+#ellipse-div {
+  width: 50%;
+  height: 9%;
+  position: sticky;
+  top: 32rem;
+  left: -4rem;
+  border-radius: 50%;
+  z-index: -10;
+
+  background: linear-gradient(270deg, #FF753E, #FCFF3E, #3EAFFF, #3E85FF);
+  background-size: 800% 800%;
+  animation: gradientShift 12s ease infinite;
+
+  box-shadow: 0px 0px 165px 400px rgba(255, 117, 62, 0.5); /* mild glow 
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
+/*
+#ellipse-div {
   width: 50%;
   height: 250px;
-  position: sticky; /*position: relative;*/
-  box-shadow: 0px 0px 165px 400px #45F5BC;
+  position: sticky; /*position: relative;
+  box-shadow: 0px 0px 165px 400px #FF753E;
   border-radius: 50%;
-  background-color: #45F5BC; /*#acff58*/
+  background-color: #FF753E; /*#acff58;
   z-index: -10;
   top: 32rem;
   left: -4rem;
-}
+}*/
 
 .section {
     margin-bottom: 6rem;
@@ -282,11 +357,12 @@ display: flex;
   border-color: var(--btnActiv-border-ethnicity);
 }
 
-
+.btn--gender.gender-active,
+.btn--ethnicity.ethnicity-active,
 .btn-over-time.active,
 .btn-over-all.active {
   /* This ensures selected mode buttons always look active */
-  font-weight: bold;
+  font-weight: 500;
 }
 
 
