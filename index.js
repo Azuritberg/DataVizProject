@@ -176,6 +176,7 @@ function getMaxValueDataset(type, dataset){
     let arrayCollection = dataset.map(x => x.data).map(x => x.map(y => y[t]));
     for (const array of arrayCollection) {
       let y = array.reduce((pv, cv) => Math.max(pv, cv), -Infinity);
+      if(y > yMax) yMax = y;
     }
   }
   return yMax;
