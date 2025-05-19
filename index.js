@@ -753,40 +753,43 @@ document.querySelectorAll(".btn-over-all-gigs").forEach(btn => {
 });
 
 
+
 function updateGigsChart() {
-  // Rensa aktiv status från alla knappar
+  // === Rensa aktiva klasser på alla knappar ===
   document.querySelectorAll(".btn--gigs--gender, .btn--gigs--ethnicity").forEach(btn => {
-    btn.classList.remove("active");
+    btn.classList.remove("gender-active", "ethnicity-active", "active");
   });
 
   document.querySelectorAll(".btn-over-time-gigs, .btn-over-all-gigs").forEach(btn => {
     btn.classList.remove("gender-active", "ethnicity-active", "active");
   });
 
-  // Om inget är valt – rensa grafen
+  // === Om ingen typ är vald, rensa graf och avsluta ===
   if (!currentTypeGraphGigs) {
     d3.select("#chart-plays").selectAll("*").remove();
     return;
   }
 
+  // === Lägg till korrekt aktiv klass för typ-knappen ===
   const typeGigsClass = currentTypeGraphGigs === "gender" ? "gender-active" : "ethnicity-active";
-
   document.querySelectorAll(`.btn--gigs--${currentTypeGraphGigs}`).forEach(btn => {
     btn.classList.add("active", typeGigsClass);
   });
 
+  
   if (!currentModeGraphGigs) {
     currentModeGraphGigs = "average";
   }
 
+  // === Lägg till korrekt aktiv klass för mode-knappen ===
   const modeGigsBtnClass = currentModeGraphGigs === "average" ? ".btn-over-all-gigs" : ".btn-over-time-gigs";
-  const gigsActiveClass = currentTypeGraphGigs === "gender" ? "gender-active" : "ethnicity-active";
+  const modeClass = currentTypeGraphGigs === "gender" ? "gender-active" : "ethnicity-active";
 
   document.querySelectorAll(modeGigsBtnClass).forEach(btn => {
-    btn.classList.add(gigsActiveClass, "active");
+    btn.classList.add(modeClass, "active");
   });
 
-  // === Välj rätt data ===
+  // === Välj korrekt data ===
   let data;
   if (currentModeGraphGigs === "average") {
     data = currentTypeGraphGigs === "gender"
@@ -798,7 +801,7 @@ function updateGigsChart() {
       : dataSetProducersEth[0].data;
   }
 
-  // === Anropa din renderfunktion ===
+  // === Rendera graf ===
   renderGigsGraphChart(data, currentTypeGraphGigs, currentModeGraphGigs);
 }
 
@@ -809,7 +812,6 @@ updateGigsChart();
 
 
 // ================================ ANDRA GRAFEN SLUTAR ===========================================
-
 
 
 
