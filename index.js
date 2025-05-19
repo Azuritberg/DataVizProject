@@ -781,6 +781,12 @@ function updateGigsChart() {
     currentModeGraphGigs = "average";
   }
 
+//   //Toggel?!
+//   if (!currentModeGraphGigs || !currentTypeGraphGigs) {
+//   d3.select("#chart-plays").selectAll("*").remove(); // Rensa grafen
+//   return;
+// }
+
   // === Lägg till korrekt aktiv klass för mode-knappen ===
   const modeGigsBtnClass = currentModeGraphGigs === "average" ? ".btn-over-all-gigs" : ".btn-over-time-gigs";
   const modeClass = currentTypeGraphGigs === "gender" ? "gender-active" : "ethnicity-active";
