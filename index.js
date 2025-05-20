@@ -820,7 +820,21 @@ updateGigsChart();
 // ================================ ANDRA GRAFEN SLUTAR ===========================================
 
 
+// GROUPED BAR CHART
+function renderGroupedBarChartCities(){
+  const svg = d3.select("#chart-cities");
+  svg.selectAll("*").remove();
+  //grab width and height from svg element
+  const width = Number(svg.attr("width"));
+  const height = Number(svg.attr("height"));
+  //define margin stuff
+  const margin = {top: 50, right: 20, bottom: 50, left: 50};
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
 
+  
+
+}
 
 
 
