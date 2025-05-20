@@ -416,30 +416,69 @@ function renderEarningsGraphChart(data, type = "gender", mode = "average") {
       .x(d => yearXScaleLine(d.year))  // konverterar årtal till X-position
       .y(d => earningsYScaleLine(d.value));  // konverterar earnings till Y-position
 
-    // === LINJER ===
-    // Ritar en path-linje => för varje kategori (t.ex. "lambda", "theta" ...) ritas en linje baserat på den data vi har.
-    const earningsLines = chartGroup.selectAll(".line")
-      .data(earningsLineData)  // en array med ett objekt per kategori (kön eller etnicitet)
-      .enter() // ett utrymme att skapa nya element för varje datapost => .enter() returnerar ett utrymme som ett visuellt element
-      .append("path") // Skapar ett nytt <path>-element i SVG för varje datapost (t.ex. ett för lambda, ett för theta, etc). Varje linje representerar en kategori
-      .attr("class", "line")  // ger alla paths CSS-klassen "line" (för ev. styling).
-      .attr("d", d => earningsLinePathFunction(d.values))  // Ritar linje baserat på d.values = [{year, value}, ...]
-      .attr("fill", "none")  // Ingen fyllnad, bara linje
-      .attr("stroke", d => colorScale(d.category))  // Färg baserat på kategori (kön eller etnicitet)
-      .attr("stroke-width", 2);  // Tjocklek
+    // // === LINJER ===
+    // // Ritar en path-linje => för varje kategori (t.ex. "lambda", "theta" ...) ritas en linje baserat på den data vi har.
+    // const earningsLines = chartGroup.selectAll(".line")
+    //   .data(earningsLineData)  // en array med ett objekt per kategori (kön eller etnicitet)
+    //   .enter() // ett utrymme att skapa nya element för varje datapost => .enter() returnerar ett utrymme som ett visuellt element
+    //   .append("path") // Skapar ett nytt <path>-element i SVG för varje datapost (t.ex. ett för lambda, ett för theta, etc). Varje linje representerar en kategori
+    //   .attr("class", "line")  // ger alla paths CSS-klassen "line" (för ev. styling).
+    //   .attr("d", d => earningsLinePathFunction(d.values))  // Ritar linje baserat på d.values = [{year, value}, ...]
+    //   .attr("fill", "none")  // Ingen fyllnad, bara linje
+    //   .attr("stroke", d => colorScale(d.category))  // Färg baserat på kategori (kön eller etnicitet)
+    //   .attr("stroke-width", 2);  // Tjocklek
 
-      // === CIRKLAR FÖR VARJE DATAPUNKT ===
-      // Går igenom varje kategori och ritar en cirkel för varje år i kategorin.
+    //   // === CIRKLAR FÖR VARJE DATAPUNKT ===
+    //   // Går igenom varje kategori och ritar en cirkel för varje år i kategorin.
+    //   earningsLineData.forEach(categoryGroup => {
+    //     chartGroup.selectAll(`.circle-${categoryGroup.category}`)
+    //       .data(categoryGroup.values) // [{year, value}, ...]
+    //       .enter() 
+    //       .append("circle") 
+    //       .attr("cx", d => yearXScaleLine(d.year))  // placera cirkel horisontellt
+    //       .attr("cy", d => earningsYScaleLine(d.value))  // placera cirkel vertikalt
+    //       .attr("r", 5)  // radie på punkten 3
+    //       .attr("fill", colorScale(categoryGroup.category));
+    //   });
+
+    const earningsLines = chartGroup.selectAll(".line")
+      .data(earningsLineData)
+      .enter()
+      .append("path")
+      .attr("class", "line")
+      .attr("d", d => earningsLinePathFunction(d.values))
+      .attr("fill", "none")
+      .attr("stroke", d => colorScale(d.category))
+      .attr("stroke-width", 2)
+      .attr("stroke-dasharray", function() {  // stroke-dasharray sätter en "osynlig" linje med exakt samma längd som linjen.
+        return this.getTotalLength();
+      })
+      .attr("stroke-dashoffset", function() {  // stroke-dashoffset flyttar ut hela linjen ur synfältet.
+        return this.getTotalLength();
+      })
+      .transition()  // .transition() animerar tillbaka stroke-dashoffset till 0 → linjen ritas upp framför ögonen.
+      .duration(1500)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
+
+
       earningsLineData.forEach(categoryGroup => {
         chartGroup.selectAll(`.circle-${categoryGroup.category}`)
-          .data(categoryGroup.values) // [{year, value}, ...]
-          .enter() 
-          .append("circle") 
-          .attr("cx", d => yearXScaleLine(d.year))  // placera cirkel horisontellt
-          .attr("cy", d => earningsYScaleLine(d.value))  // placera cirkel vertikalt
-          .attr("r", 3)  // radie på punkten
-          .attr("fill", colorScale(categoryGroup.category));
+          .data(categoryGroup.values)
+          .enter()
+          .append("circle")
+          .attr("cx", d => yearXScaleLine(d.year))
+          .attr("cy", d => earningsYScaleLine(d.value))
+          .attr("r", 0) // Börjar som osynlig liten cirkel
+          .attr("fill", colorScale(categoryGroup.category))
+          .transition()
+          .duration(2500)
+          .delay((_, i) => i * 80) // Lägg till liten delay per punkt för flyt
+          .attr("r", 5); // Växer upp till vanlig storlek
       });
+
+
+
 
     }
 
@@ -690,7 +729,7 @@ function renderGigsGraphChart(data, type = "gender", mode = "average") {
         .append("circle")
         .attr("cx", d => yearXScaleLine(d.year))
         .attr("cy", d => gigsYScaleLine(d.value))
-        .attr("r", 3)
+        .attr("r", 5) //3
         .attr("fill", colorScale(categoryGroup.category));
     });
   }
