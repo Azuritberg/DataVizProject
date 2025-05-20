@@ -819,7 +819,8 @@ updateGigsChart();
 
 // ================================ ANDRA GRAFEN SLUTAR ===========================================
 
-
+let testData = yearsToAllTimeDataset(ethnicties, cities, dataSetCitiesEth);
+console.log(testData);
 // GROUPED BAR CHART
 function renderGroupedBarChartCities(){
   const svg = d3.select("#chart-cities");
@@ -832,9 +833,37 @@ function renderGroupedBarChartCities(){
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
+  let xA = d3.scaleBand()
+    .domain(testData.map(x => x.type))
+    .range(0, innerWidth)
+    .padding(0.1);
+
+  let xB = d3.scaleBand()
+    .domain([0,1,2])
+    .range([0, xA.bandwidth()])
+    .padding(0.05);
   
+  let y = d3.scaleLinear()
+    .domain([0, getMaxValueDataset(ethnicties, dataSetCitiesEth)])
+    .range([innerHeight, 0]);
+
+  svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(xA))
+    .selectAll("text")
+      .attr("transform", "rotate(-45)")
+      .style("text-anchor", "end");
+
+  svg.append("g")
+  .call(d3.axisLeft(y));
+
+/*   let selection = svg.selectAll("rect")
+    .data(testData)
+    .enter();
+ */
 
 }
+renderGroupedBarChartCities();
 
 
 
