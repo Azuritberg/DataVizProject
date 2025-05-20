@@ -834,8 +834,8 @@ function renderGroupedBarChartCities(){
   const innerHeight = height - margin.top - margin.bottom;
 
   let xA = d3.scaleBand()
-    .domain(testData.map(x => x.type))
-    .range(0, innerWidth)
+    .domain([testData.map(x => x.type)])
+    .range([0, innerWidth])
     .padding(0.1);
 
   let xB = d3.scaleBand()
