@@ -36,6 +36,8 @@ export function getMaxValueDataset(type, dataset){
   
   
   // == FUNKTION TILL ATT TRANSFORMERA DATA (linjegraf) ==
+  // Input: Vi omformar data från [{ year: 2015, lambda: 300, ... }, ...]
+  // Output: till ett format per kategori: [{ category: "lambda", values: [ { year: ..., value: ... }, ... ] }]
   export function transformToLineData(data, categories) {
     return categories.map(category => ({
       category,
@@ -68,4 +70,17 @@ export function getMaxValueDataset(type, dataset){
         returnData.push(obj);
     }
     return returnData;
+}
+
+
+export function getGreekGraphSymbol(key) {
+  const mapSymbols = {
+    lambda: "λ",
+    theta: "Θ",
+    omicron: "O",
+    tau: "T",
+    psi: "ψ",
+    rho: "P"
+  };
+  return mapSymbols[key] ?? "?";
 }

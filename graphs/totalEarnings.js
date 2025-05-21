@@ -1,6 +1,6 @@
-import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
+import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender, datasetTotalEarningsYearByYearEth, datasetTotalEarningsYearByYearGen } from '../data/dataInit.js';
 import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
-import { yearsToAllTimeDataset, getMaxValueDataset,  transformToLineData, combineGroups} from '../data/auxfunctions.js';
+import { yearsToAllTimeDataset, getMaxValueDataset,  transformToLineData, combineGroups, getGreekGraphSymbol } from '../data/auxfunctions.js';
 
 
 
@@ -16,6 +16,7 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
   const svg = d3.select("#chart-earnings");
   svg.selectAll("*").remove();  // Tömma SVG och rita nytt
 
+  const tooltip = d3.select("#tooltip-general");
 
   // == GRUNDINSTÄLLNINGAR ==
   // SVG-storleken och definierar marginaler för axlar och text.
@@ -70,11 +71,16 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
       .call(d3.axisBottom(categoryXScale));
 
 
-    // === ENTER/UPDATE/EXIT FÖR STAPLAR ===
+    // === UPDATE/ENTER/EXIT FÖR STAPLAR ===
+    // På .data(data) på ett selection, får tre möjliga "flöden":
+    // Update – redan existerande element som matchar nya data.
+    // Enter – ny data som saknar element → D3 skapar nya element.
+    // Exit – gamla element som inte längre har någon data → tas bort.
     // Staplar - BARS - Earnings  == Här ritas staplarna ut
     const earningsBars = chartGroup.selectAll(".bar")
-      .data(data, d => d[type]);
+      .data(data, d => d[type]);  // .data() binder ny data till befintliga staplar
 
+    // Update (uppdatera existerande staplar)
     earningsBars.transition()  // UPDATE  transition() körs på befintliga element
       .duration(1500)
       .attr("x", d => categoryXScale(d[type]))
@@ -83,15 +89,32 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
       .attr("height", d => innerHeight - earningsYScale(d.earnings))
       .attr("fill", d => colorScale(d[type]));
 
+    // Enter (skapa nya staplar)
     earningsBars.enter()  // ENTER  enter() körs på nya element
       .append("rect")
       .attr("class", "bar")
       .attr("x", d => categoryXScale(d[type]))  // .x positioneras baserat på kön/etnicitet
       .attr("width", categoryXScale.bandwidth())  // .height är skillnaden mellan y=0 och earnings 
-      .attr("y", innerHeight)
-      .attr("height", 0)
+      .attr("y", innerHeight)  // Börjar längst ner
+      .attr("height", 0)       // Börjar med höjd 0
       .attr("fill", d => colorScale(d[type]))  // Färg baserat på kategori (kön eller etnicitet)
-      .style("opacity", 0)
+      .on("mouseover", function(event, d) {
+        tooltip
+          .style("display", "block")
+          .html(`
+            <div class="tooltip-header" style="color:${colorScale(d[type])};">${d[type][0].toUpperCase() + d[type].slice(1)} : ${getGreekGraphSymbol(d[type])}</div>
+            <div><strong>Year</strong> : ${d.year ?? "All time"}</div>
+            <div><strong>Earnings</strong> : ${d.earnings.toFixed(0)}</div>
+          `);
+      })
+      .on("mousemove", function(event) {
+        tooltip
+          .style("left", (event.pageX + 15) + "px")
+          .style("top", (event.pageY - 30) + "px");
+      })
+      .on("mouseleave", function() {
+        tooltip.style("display", "none");
+      })
       .transition()
       .duration(1500)
       .delay((_, i) => i * 100)
@@ -200,7 +223,7 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
       .attr("d", d => earningsLinePathFunction(d.values))  // Ritar linje baserat på d.values = [{year, value}, ...]
       .attr("fill", "none")  // Ingen fyllnad, bara linje
       .attr("stroke", d => colorScale(d.category))  // Färg baserat på kategori (kön eller etnicitet)
-      .attr("stroke-width", 2)  // Tjocklek
+      .attr("stroke-width", 3)  // Tjocklek
       .attr("stroke-dasharray", function() {  // stroke-dasharray sätter en "osynlig" linje med exakt samma längd som linjen.
         return this.getTotalLength();
       })
@@ -224,10 +247,29 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
           .attr("cy", d => earningsYScaleLine(d.value))  // placera cirkel vertikalt
           .attr("r", 0) // Börjar som osynlig liten cirkel
           .attr("fill", colorScale(categoryGroup.category))
+          .on("mouseover", function(event, d) {
+            tooltip
+              .style("display", "block")
+              .html(`
+                <div class="tooltip-header" style="color:${colorScale(categoryGroup.category)};">
+                  ${categoryGroup.category[0].toUpperCase() + categoryGroup.category.slice(1)} : ${getGreekGraphSymbol(categoryGroup.category)}
+                </div>
+                <div><strong>Year</strong> : ${d.year}</div>
+                <div><strong>Earnings</strong> : ${d.value.toFixed(0)}</div>
+              `);
+          })
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 15) + "px")
+              .style("top", (event.pageY - 30) + "px");
+          })
+          .on("mouseleave", function() {
+            tooltip.style("display", "none");
+          })
           .transition()  // .transition().duration(500)	Animera varje cirkel
           .duration(2500)
           .delay((_, i) => i * 80) // Lägg till liten delay per punkt för flyt - Varje punkt kommer lite efter föregående
-          .attr("r", 5); // Växer upp till vanlig storlek
+          .attr("r", 6); // Växer upp till vanlig storlek
       });
 
     }
@@ -318,10 +360,10 @@ export function updateEarningsChart() {
       data = currentTypeGraphEarnings === "gender"
         ? dataSetAvgEarningsGender
         : dataSetAvgEarningsEthnicity;
-    } else { console.log(ethnicties)
+    } else { 
       data = currentTypeGraphEarnings === "gender"
-        ? combineGroups(genders, dataSetCitiesGen) 
-        : combineGroups(ethnicties, dataSetCitiesEth);
+        ? datasetTotalEarningsYearByYearGen
+        : datasetTotalEarningsYearByYearEth;
     }
   
     // === Rendera diagrammet ===

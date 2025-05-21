@@ -1,6 +1,6 @@
-import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
+import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender, datasetTotalEarningsYearByYearEth, datasetTotalEarningsYearByYearGen } from '../data/dataInit.js';
 import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
-import { yearsToAllTimeDataset, getMaxValueDataset, transformToLineData, combineGroups} from '../data/auxfunctions.js';
+import { yearsToAllTimeDataset, getMaxValueDataset, transformToLineData, combineGroups, getGreekGraphSymbol } from '../data/auxfunctions.js';
 
 
 
@@ -12,6 +12,8 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
 
   const svg = d3.select("#chart-plays");
   svg.selectAll("*").remove();
+
+  const tooltip = d3.select("#tooltip-general");
 
   const width = +svg.attr("width");
   const height = +svg.attr("height");
@@ -66,7 +68,23 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
       .attr("y", innerHeight)
       .attr("height", 0)
       .attr("fill", d => colorScale(d[type]))  // Färg baserat på kategori (kön eller etnicitet)
-      .style("opacity", 0)
+      .on("mouseover", function(event, d) {
+        tooltip
+          .style("display", "block")
+          .html(`
+            <div class="tooltip-header" style="color:${colorScale(d[type])};">${d[type][0].toUpperCase() + d[type].slice(1)} : ${getGreekGraphSymbol(d[type])}</div>
+            <div><strong>Year</strong> : ${d.year ?? "All time"}</div>
+            <div><strong>Earnings</strong> : ${d.totalGigs.toFixed(0)}</div>
+          `);
+      })
+      .on("mousemove", function(event) {
+        tooltip
+          .style("left", (event.pageX + 15) + "px")
+          .style("top", (event.pageY - 30) + "px");
+      })
+      .on("mouseleave", function() {
+        tooltip.style("display", "none");
+      })     
       .transition()
       .duration(1500)
       .delay((_, i) => i * 100)
@@ -151,7 +169,7 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
       .attr("d", d => gigsLinePathFunction(d.values))
       .attr("fill", "none")
       .attr("stroke", d => colorScale(d.category))
-      .attr("stroke-width", 2)
+      .attr("stroke-width", 3)
       .attr("stroke-dasharray", function() {  // stroke-dasharray sätter en "osynlig" linje med exakt samma längd som linjen.
         return this.getTotalLength();
       })
@@ -173,10 +191,29 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
           .attr("cy", d => gigsYScaleLine(d.value))
           .attr("r", 0) // Börjar som osynlig liten cirkel
           .attr("fill", colorScale(categoryGroup.category))
+          .on("mouseover", function(event, d) {
+            tooltip
+              .style("display", "block")
+              .html(`
+                <div class="tooltip-header" style="color:${colorScale(categoryGroup.category)};">
+                  ${categoryGroup.category[0].toUpperCase() + categoryGroup.category.slice(1)} : ${getGreekGraphSymbol(categoryGroup.category)}
+                </div>
+                <div><strong>Year</strong> : ${d.year}</div>
+                <div><strong>Earnings</strong> : ${d.value.toFixed(0)}</div>
+              `);
+          })
+          .on("mousemove", function(event) {
+            tooltip
+              .style("left", (event.pageX + 15) + "px")
+              .style("top", (event.pageY - 30) + "px");
+          })
+          .on("mouseleave", function() {
+            tooltip.style("display", "none");
+          })
           .transition()
           .duration(2500)
           .delay((_, i) => i * 80) // Lägg till liten delay per punkt för flyt
-          .attr("r", 5); // Växer upp till vanlig storlek
+          .attr("r", 6); // Växer upp till vanlig storlek
       });  
   }
 
