@@ -2,7 +2,7 @@
 
 
 // ==== Functions ====
-export function getMaxValueDataset(type, dataset){
+export function getMaxValueDataset(type, dataset) {
     let yMax = 0;
     for (const t of type) {
       let arrayCollection = dataset.map(x => x.data).map(x => x.map(y => y[t]));
@@ -15,7 +15,7 @@ export function getMaxValueDataset(type, dataset){
   }
   
   
-  export function yearsToAllTimeDataset(type, type2, dataset){
+  export function yearsToAllTimeDataset(type, type2, dataset) {
     let objs = [];
     for (const t2 of type2) {
       let datamap = dataset.filter(x => x.name == t2).map(x => x.data)[0];
@@ -49,7 +49,7 @@ export function getMaxValueDataset(type, dataset){
   }
 
 
-  export function combineGroups(type, data){
+  export function combineGroups(type, data) {
     let a = type[0], b = type[1], c = type[2];
     
     //city of cities
