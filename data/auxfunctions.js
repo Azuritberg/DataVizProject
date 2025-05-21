@@ -10,6 +10,15 @@ export function getMaxValueDataset(type, dataset){
     }
     return yMax;
   }
+export function getMaxValueDatasetOverall(type, dataset){
+    let ymax = 0;
+    for (const d of dataset) {
+        for (const t of type) {
+            if(t[d] > ymax) ymax = t[d]
+        }
+    }
+    return ymax
+}
   
   
   export function yearsToAllTimeDataset(type, type2, dataset){

@@ -5,6 +5,7 @@ import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProduce
 import { cities, producers, genders, ethnicties } from './data/dataInit.js';
 import { renderEarningsGraphChart, updateEarningsChart} from './graphs/totalearnings.js';
 import { renderGigsGraphChart, updateGigsChart } from './graphs/totalgigs.js';
+import { renderGroupedBarChartCities} from './graphs/citiesGraph.js';
 
 // === CREATE CITY BUTTONS ===
 const cityButtonsContainer = document.querySelector(".city-buttons");
@@ -43,3 +44,4 @@ activateOne(".btn-producer");
 
 updateEarningsChart(); // Renderar sidan när den laddas
 updateGigsChart(); //Renderar sidan när den laddas
+renderGroupedBarChartCities();

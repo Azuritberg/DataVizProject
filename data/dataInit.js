@@ -32,6 +32,7 @@ for (const city of Cities) {
     for(let i = 0; i < 10; i++){
         let yearsGigs = cityGigs.filter(x => {
             let year = new Date(x.date).getFullYear();
+
             return year == 2015 + i;
         });
         let yearPoint = {
@@ -117,8 +118,6 @@ for (const producer of Producers) {
     dataSetProducersEth.push(dataPointEth);
     dataSetProducersGen.push(dataPointGen);
 }
-console.log(dataSetProducersEth, dataSetProducersGen);
-console.log(dataSetCitiesEth, dataSetCitiesGen)
 
 
 
@@ -173,7 +172,7 @@ export const producers = [
   ];
   
 
-console.log(dataSetAvgEarningsGender, dataSetAvgEarningsEthnicity);
-console.log(dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
+console.log("TJA",dataSetAvgEarningsGender, dataSetAvgEarningsEthnicity);
+console.log("TJA",dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
 
 
