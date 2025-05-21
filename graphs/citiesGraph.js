@@ -1,5 +1,5 @@
 import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
-import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
+import { cities, producers, genders, ethnicties } from '../data/datainit.js';
 import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall} from '../data/auxfunctions.js';
 import { Cities } from '../data/data.js';
 
@@ -90,7 +90,14 @@ export function renderGroupedBarChartCities(){
       .attr("width", xB.bandwidth())
       .attr("fill", d => color(d.key));
   }
+  function renderLines(lineData, category){
+    let data = transformToLineData(lineData, category)
+    console.log(data);
+    svg.selectAll("*").remove();
+
+  }
   render(ethnicties, testData);
+
     
     let a = d3.select(".btnCity--gender")
         .on("click", (event) => {
@@ -122,7 +129,19 @@ export function renderGroupedBarChartCities(){
             select.classed("pressed", false)
             event.target.classList.add("pressed");
             specificityMode = event.target.id;
-            console.log(specificityMode)
+            console.log(specificityMode, mode)
+            let lineData;
+            if(mode == "ethnicity"){
+                //render line based on ethnicity
+                console.log("mode is " + mode)
+                lineData = dataSetCitiesEth.find(x => x.id == specificityMode).data;
+                renderLines(lineData, ethnicties);
+            } else if(mode == "gender") {
+                //render line based on gender
+                console.log("mode is " + mode)
+                lineData = dataSetCitiesGen.find(x => x.id == specificityMode).data;
+                renderLines(lineData, genders);
+            }
         }
 
 
