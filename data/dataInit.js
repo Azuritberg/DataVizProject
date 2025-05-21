@@ -66,6 +66,7 @@ for (const city of Cities) {
     dataSetCitiesEth.push(dataPoint);
     dataSetCitiesGen.push(dataPoint2);
 }
+console.log(dataSetCitiesEth);
 
 
 //==== Same as above but for producers not cities ====

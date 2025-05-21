@@ -1,3 +1,5 @@
+import { dataSetAvgEarningsEthnicity, ethnicties , dataSetCitiesEth, genders, dataSetCitiesGen} from "./datainit.js";
+
 // ==== Functions ====
 export function getMaxValueDataset(type, dataset){
     let yMax = 0;
@@ -19,6 +21,29 @@ export function getMaxValueDatasetOverall(type, dataset){
     }
     return ymax
 }
+export function combineGroups(type, data){
+    let a = type[0],b = type[1],c = type[2];
+    
+    //city of cities
+    let returnData = [];
+    for(let i = 0; i < 10 ; i++){
+        let obj = {
+            year: 2015 + i
+        }
+        obj[a] = 0, obj[b] = 0, obj[c] = 0;
+        for (const d of data) {
+            
+            let theYear = d.data.find(d => d.year == 2015 + i);
+            obj[a] += theYear[a];
+            obj[b] += theYear[b];
+            obj[c] += theYear[c];
+        }
+        console.log(obj)
+        returnData.push(obj);
+    }
+    return returnData;
+}
+console.log(combineGroups(ethnicties, dataSetCitiesEth));
   
   
   export function yearsToAllTimeDataset(type, type2, dataset){
@@ -31,8 +56,7 @@ export function getMaxValueDatasetOverall(type, dataset){
       }
       for (const t of type) {
         let objectData = datamap.map(x => x[t]).reduce((pv, cv) => pv + cv, 0);
-        obj[t] = objectData
-        console.log(t2,t, objectData)
+        obj[t] = objectData;
       }
       objs.push(obj);
     }

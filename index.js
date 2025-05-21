@@ -28,19 +28,28 @@ producers.forEach(producer => {
 });
 
 // === HANDLE ACTIVE BUTTON ===
-function activateOne(buttonsClass) {
+/* function activateOne(buttonsClass) {
   const buttons = document.querySelectorAll(buttonsClass);
   buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
       buttons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+      if(btn.classList.contains("active")){
+        console.log(btn.classList);
+        console.log("active")
+        btn.active
+      } else {
+        console.log(btn.classList);
+        console.log("inactive")
+        btn.classList.add("active");
+      }
     });
   });
 }
 
 // === ACTIVATE CITIES & PRODUCERS ===
 activateOne(".btn-city");
-activateOne(".btn-producer");
+activateOne(".btn-producer"); */
 
 updateEarningsChart(); // Renderar sidan när den laddas
 updateGigsChart(); //Renderar sidan när den laddas

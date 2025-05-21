@@ -295,7 +295,11 @@ display: flex;
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
+.pressed {
+  border: 1px solid var(--primary-btn-border-grey);
+    background-color: var(--btn-text-blue);
+    color: var(--primary-white);
+}
 .btn:hover {
     border: 1px solid var(--primary-btn-border-grey);
     background-color: var(--primary-btnActiv-grey);
