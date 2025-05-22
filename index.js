@@ -3,10 +3,8 @@ import { Gigs, DJs, Producers, Cities } from './data/data.js';
 import { yearsToAllTimeDataset, getMaxValueDataset,  transformToLineData} from './data/auxfunctions.js';
 import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from './data/dataInit.js';
 import { cities, producers, genders, ethnicties } from './data/dataInit.js';
-import { renderEarningsGraphChart, updateEarningsChart} from './graphs/totalearnings.js';
+import { renderEarningsGraphChart, updateEarningsChart } from './graphs/totalearnings.js';
 import { renderGigsGraphChart, updateGigsChart } from './graphs/totalgigs.js';
-
-
 
 // === CREATE CITY BUTTONS ===
 const cityButtonsContainer = document.querySelector(".city-buttons");

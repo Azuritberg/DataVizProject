@@ -275,13 +275,12 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
 
 
 
+// === BUTTONS FÖR EARNINGS-GRAFEN ===
 
 let currentTypeGraphEarnings = "ethnicity";     // "gender" eller "ethnicity"
 let currentModeGraphEarnings = "average";      // "average" eller "time"
 
 
-
-// == FUNKTION TILL ATT UPPDATERA GRAFEN ==
 export function updateEarningsChart() {
 
     // === Ta bort alla knappar först ===

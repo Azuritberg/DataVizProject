@@ -220,9 +220,8 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
 }
   
   
-  
-  
-  
+
+// === BUTTONS FÖR GIGS-GRAFEN ===
   
 let currentTypeGraphGigs = "ethnicity";       // "gender" eller "ethnicity"
 let currentModeGraphGigs = "average";         // "average" eller "time"
@@ -255,13 +254,7 @@ export function updateGigsChart() {
   if (!currentModeGraphGigs) {
     currentModeGraphGigs = "average";
   }
-  
-  //   //Toggel?!
-  //   if (!currentModeGraphGigs || !currentTypeGraphGigs) {
-  //   d3.select("#chart-plays").selectAll("*").remove(); // Rensa grafen
-  //   return;
-  // }
-  
+    
   // === Lägg till korrekt aktiv klass för mode-knappen ===
   const modeGigsBtnClass = currentModeGraphGigs === "average" ? ".btn-over-all-gigs" : ".btn-over-time-gigs";
   const modeClass = currentTypeGraphGigs === "gender" ? "gender-active" : "ethnicity-active";
