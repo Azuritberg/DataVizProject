@@ -92,7 +92,7 @@ export function renderGroupedBarChartProducers(){
                     .style("display", "block")
                     .html(`
                     <div class="tooltip-header" style="color:${color(d.key)};">${d.key[0].toUpperCase() + d.key.slice(1)} : ${getGreekGraphSymbol(d.key)}</div>
-                    <div><strong>Group</strong>: ${d.key}</div>
+                    <div><strong>Group</strong>: ${d.key[0].toUpperCase() + d.key.slice(1)}</div>
                     <div><strong>Value</strong>: ${d.value}</div>
                     `);
                 })
@@ -124,7 +124,7 @@ export function renderGroupedBarChartProducers(){
             .attr("text-anchor", "middle")
             .attr("font-size", "0.8rem")
             .attr("fill", "#666")
-            .text("between the years 2015 - 2025")
+            .text("Between the years 2015 - 2025")
 
         
         }
@@ -231,7 +231,7 @@ export function renderGroupedBarChartProducers(){
             .attr("text-anchor", "middle")
             .attr("font-size", "0.8rem")
             .attr("fill", "#666")
-            .text("further divided by year")
+            .text("Further divided by year")
 
         }
         render(ethnicties, testData);

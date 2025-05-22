@@ -104,7 +104,7 @@ export function renderGroupedBarChartCities(){
         .style("display", "block")
         .html(`
           <div class="tooltip-header" style="color:${color(d.key)};">${d.key[0].toUpperCase() + d.key.slice(1)} : ${getGreekGraphSymbol(d.key)}</div>
-          <div><strong>Group</strong>: ${d.key}</div>
+          <div><strong>Group</strong>: ${d.key[0].toUpperCase() + d.key.slice(1)}</div>
           <div><strong>Value</strong>: ${d.value}</div>
         `);
     })
@@ -121,14 +121,6 @@ export function renderGroupedBarChartCities(){
     .delay((_, i) => i * 100)
     .attr("y", d => y(d.value))
     .attr("height", d => innerHeight - y(d.value));
-      // .append("rect")
-    //   .attr("x", d => xB(d.key))
-    //   .attr("y", d => y(d.value))
-    //   .attr("height", d => {
-    //     return innerHeight - y(d.value)
-    //     })
-    //   .attr("width", xB.bandwidth())
-    //   .attr("fill", d => color(d.key));
 
     let graphTitle = svg.append("text")
                 .attr("x", width/2)
@@ -144,7 +136,7 @@ export function renderGroupedBarChartCities(){
             .attr("text-anchor", "middle")
             .attr("font-size", "0.8rem")
             .attr("fill", "#666")
-            .text("between the years 2015 - 2025")
+            .text("Between the years 2015 - 2025")
   }
   function renderLines(lineData, category){
     let data = transformToLineData(lineData, category)
@@ -252,7 +244,7 @@ export function renderGroupedBarChartCities(){
       .attr("text-anchor", "middle")
       .attr("font-size", "0.8rem")
       .attr("fill", "#666")
-      .text("further divided by year")
+      .text("Further divided by year")
   }
   render(ethnicties, testData);
 
