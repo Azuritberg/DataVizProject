@@ -21,6 +21,15 @@ export function getMaxValueDatasetOverall(type, dataset){
     }
     return ymax
 }
+export function maxValueLineSet(type, dataset){
+  let ymax = 0;
+  for (const d of dataset) {
+    for (const d2 of d.values) {
+      if(d2.value > ymax) ymax = d2.value
+    }
+  }
+  return ymax;
+}
 export function combineGroups(type, data){
     let a = type[0],b = type[1],c = type[2];
     

@@ -295,9 +295,15 @@ display: flex;
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.pressed {
-  border: 1px solid var(--primary-btn-border-grey);
-    background-color: var(--btn-text-blue);
+
+.pressedEth {
+  border: 1px solid var(--btnActiv-border-ethnicity);
+    background-color: var(--btnActiv-ethnicity);
+    color: var(--btn-text-blue);
+}
+.pressedGen{
+  border: 1px solid var(--btnActiv-border-gender);
+    background-color: var(--btnActiv-gender);
     color: var(--primary-white);
 }
 .btn:hover {
@@ -305,7 +311,9 @@ display: flex;
     background-color: var(--primary-btnActiv-grey);
     color: var(--btn-text-blue);
 }
-
+.l{
+  color: none;
+}
 
 /* == Active Buttons == */
 

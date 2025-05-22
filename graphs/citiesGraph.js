@@ -1,6 +1,6 @@
 import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
 import { cities, producers, genders, ethnicties } from '../data/datainit.js';
-import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall} from '../data/auxfunctions.js';
+import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet} from '../data/auxfunctions.js';
 import { Cities } from '../data/data.js';
 
 let ethColors = ["#00F453", "#ACFF58", "#45F5BC"];
@@ -10,9 +10,11 @@ let ymax = getMaxValueDatasetOverall(testData, ethnicties);
 console.log(ymax);
 // GROUPED BAR CHART
 export function renderGroupedBarChartCities(){
-    d3.select(".btnCity--ethnicity").classed("pressed", true);
-    let groups = ethnicties;
-    let colors;
+
+  d3.select(".btnCity--ethnicity").classed("pressed", true);
+  d3.select(".btnCity--ethnicity").classed("pressedEth", true);
+  let groups = ethnicties;
+  let colors;
   let mode = "ethnicity"
   let specificityMode = "allCities";
   const svg = d3.select("#chart-cities");
@@ -34,6 +36,7 @@ export function renderGroupedBarChartCities(){
 
   function render(type) {
     console.log(testData);
+    svg.selectAll("*").remove();
     if(type == ethnicties){
         testData = yearsToAllTimeDataset(ethnicties, cities, dataSetCitiesEth);
         ymax = getMaxValueDatasetOverall(testData, ethnicties);
@@ -43,6 +46,11 @@ export function renderGroupedBarChartCities(){
         ymax = getMaxValueDatasetOverall(testData, genders);
         colors = genColors;
     }
+
+    let xA = d3.scaleBand()
+    .domain(testData.map(x => x.type))
+    .range([0, innerWidth])
+    .padding(0.2);
     
     let xB = d3.scaleBand()
     .domain(type)
@@ -94,26 +102,107 @@ export function renderGroupedBarChartCities(){
     let data = transformToLineData(lineData, category)
     console.log(data);
     svg.selectAll("*").remove();
+    let ymax = maxValueLineSet(category, data);
+    let x = d3.scalePoint()
+      .domain(data[0].values.map(d => d.year))
+      .range([0, innerWidth])
+      .padding(0);
+    let y = d3.scaleLinear()
+      .domain([0, ymax])
+      .range([innerHeight, 0]);
+    const line = d3.line()
+      .x(d => x(d.year))
+      .y(d => y(d.value));
+    let colors;
+    if(category == ethnicties){
+      colors = ethColors;
+    } else {
+      colors = genColors;
+    }
+    let c = d3.scaleOrdinal()
+      .domain(category)
+      .range(colors);
 
+    const chartGroup = svg.append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    chartGroup.append("g")
+    .attr("transform", `translate(0,${innerHeight})`)
+    .call(d3.axisBottom(x))
+  
+    chartGroup.append("g")
+      .call(d3.axisLeft(y));
+
+    const lineGroup = chartGroup.selectAll(".cat")
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("class", "cat");
+    
+    lineGroup.append("path")
+      .attr("class", "l")
+      .attr("d", d => line(d.values))
+      .attr("stroke", d=> c(d.category))
+      .attr("fill", "none")
+      .attr("stroke-width", 3);
+
+    lineGroup.each(function(d){
+      d3.select(this)
+        .selectAll("circle")
+        .data(d.values)
+        .enter()
+        .append("circle")
+        .attr("cx", a => x(a.year))
+        .attr("cy", a => y(a.value))
+        .attr("r", "6")
+        .attr("fill", () => c(d.category));
+    })
   }
   render(ethnicties, testData);
 
     
     let a = d3.select(".btnCity--gender")
         .on("click", (event) => {
-            d3.select(".btnCity--ethnicity").classed("pressed", false);
-            d3.select(".btnCity--gender").classed("pressed", true);
-            mode = "gender";
-            svg.selectAll("*").remove();
-            render(genders)
+            if(mode != "gender"){
+              d3.select(".btnCity--ethnicity").classed("pressed", false);
+              d3.select(".btnCity--ethnicity").classed("pressedEth", false);
+              d3.select(".btnCity--gender").classed("pressedGen", true)
+              d3.select(".btnCity--gender").classed("pressed", true);
+              d3.selectAll(".btn-city")
+                .filter(function() {
+                  return d3.select(this).classed("pressedEth")
+                })
+                .classed("pressedGen", true)
+                .classed("pressedEth", false);
+              
+              mode = "gender";
+              svg.selectAll("*").remove();
+              if(specificityMode == "allCities")
+                render(genders)
+              else
+                renderLines(dataSetCitiesGen.find(x => x.id == specificityMode).data, genders);
+            }
         });
     let b = d3.select(".btnCity--ethnicity")
         .on("click", (event) => {
-            d3.select(".btnCity--gender").classed("pressed", false);
-            d3.select(".btnCity--ethnicity").classed("pressed", true);
-            mode = "ethnicity"
-            svg.selectAll("*").remove();
-            render(ethnicties)
+            if(mode != "ethnicity"){
+              d3.select(".btnCity--gender").classed("pressed", false);
+              d3.select(".btnCity--gender").classed("pressedGen", false);
+              d3.select(".btnCity--ethnicity").classed("pressed", true);
+              d3.select(".btnCity--ethnicity").classed("pressedEth", true);
+              d3.selectAll(".btn-city")
+                .filter(function() {
+                  return d3.select(this).classed("pressedGen")
+                })
+                .classed("pressedGen", false)
+                .classed("pressedEth", true);
+              mode = "ethnicity"
+              svg.selectAll("*").remove();
+              if(specificityMode == "allCities")
+                render(ethnicties)
+              else
+                renderLines(dataSetCitiesEth.find(x => x.id == specificityMode).data, ethnicties);
+            }
         });
   let cityButtons = d3.selectAll(".btn-city")
     .attr("class", (d, i , nodes) => {
@@ -122,21 +211,33 @@ export function renderGroupedBarChartCities(){
     .on("click", (event) => {
         if(event.target.classList.contains("pressed")){
             d3.selectAll(".btn-city").classed("pressed", false);
-            specificityMode = "allCitites"
-            console.log(specificityMode)
+            d3.selectAll(".btn-city").classed("pressedGen", false);
+            d3.selectAll(".btn-city").classed("pressedEth", false);
+            specificityMode = "allCities"
+            console.log(specificityMode, mode)
+            if(mode == "ethnicity"){
+              render(ethnicties, testData);
+            } else {
+              render(genders, testData);
+            }
         }else{
             let select = d3.selectAll(".btn-city");
-            select.classed("pressed", false)
+            select.classed("pressed", false);
+            d3.selectAll(".btn-city").classed("pressedGen", false);
+            d3.selectAll(".btn-city").classed("pressedEth", false);
             event.target.classList.add("pressed");
+            
             specificityMode = event.target.id;
             console.log(specificityMode, mode)
             let lineData;
             if(mode == "ethnicity"){
+                event.target.classList.add("pressedEth");
                 //render line based on ethnicity
-                console.log("mode is " + mode)
+                console.log("mode is " + specificityMode)
                 lineData = dataSetCitiesEth.find(x => x.id == specificityMode).data;
-                renderLines(lineData, ethnicties);
+                renderLines(lineData, ethnicties)
             } else if(mode == "gender") {
+                event.target.classList.add("pressedGen");
                 //render line based on gender
                 console.log("mode is " + mode)
                 lineData = dataSetCitiesGen.find(x => x.id == specificityMode).data;
