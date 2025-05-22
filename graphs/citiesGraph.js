@@ -226,7 +226,7 @@ export function renderGroupedBarChartCities(){
           tooltip.style("display", "none");
         })
         .transition()
-        .duration(1500)
+        .duration(2500)
         .delay((_, i) => i * 80)
         .attr("r", 6);
     })
