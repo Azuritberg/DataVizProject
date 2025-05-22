@@ -41,10 +41,25 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
 
     const yAxis = chartGroup.append("g")
       .call(d3.axisLeft(gigsYScale));
+
+    // Först skapas en d3.axisBottom()-instans med .tickFormat().
+    // Sen anropas .call(xAxis), vilket kör det färdiga objektet med alla inställningar.
+    const xAxisGroup = chartGroup.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`);
+
+    const xAxis = d3.axisBottom(categoryXScale)
+      .tickFormat(d => {
+        if (typeof d === "string") {
+          return d.charAt(0).toUpperCase() + d.slice(1);
+        }
+        return d;
+      });
+
+    xAxisGroup.call(xAxis);
     
-    const xAxis = chartGroup.append("g")
-      .attr("transform", `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(categoryXScale));
+    // const xAxis = chartGroup.append("g")
+    //   .attr("transform", `translate(0, ${innerHeight})`)
+    //   .call(d3.axisBottom(categoryXScale));
 
 
     // === STAPLAR ===
@@ -85,8 +100,8 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
         .duration(1500)
         .delay((_, i) => i * 100)
         .style("opacity", 1)
-        .attr("y", d => gigsYScale(d.totalGigs))
-        .attr("height", d => innerHeight - gigsYScale(d.totalGigs));
+        .attr("y", d => gigsYScale(d.totalGigs) + 2)
+        .attr("height", d => innerHeight - gigsYScale(d.totalGigs) - 3);
 
       // === TEXT OVANFÖR STAPLAR ===
       const gigsLabels = chartGroup.selectAll(".bar-label");

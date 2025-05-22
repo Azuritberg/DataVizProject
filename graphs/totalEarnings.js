@@ -65,10 +65,27 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
     const yAxis = chartGroup.append("g")
       .call(d3.axisLeft(earningsYScale));
 
+    // Först skapas en d3.axisBottom()-instans med .tickFormat().
+    // Sen anropas .call(xAxis), vilket kör det färdiga objektet med alla inställningar.
+    const xAxisGroup = chartGroup.append("g")
+      .attr("transform", `translate(0, ${innerHeight})`);
+
+    const xAxis = d3.axisBottom(categoryXScale)
+      .tickFormat(d => {
+        if (typeof d === "string") {
+          return d.charAt(0).toUpperCase() + d.slice(1);
+        }
+        return d;
+      });
+
+    xAxisGroup.call(xAxis);
+
+
     // X-axel
-    const xAxis = chartGroup.append("g")
-      .attr("transform", `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(categoryXScale));
+    // const xAxis = chartGroup.append("g")
+    //   .attr("transform", `translate(0, ${innerHeight})`)
+    //   .call(d3.axisBottom(categoryXScale))
+    //   console.log("Tick format test:", categoryXScale.domain());
 
 
     // Staplar - BARS - Earnings  == Här ritas staplarna ut
@@ -107,8 +124,8 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
         .duration(1500)
         .delay((_, i) => i * 100)
         .style("opacity", 1)
-        .attr("y", d => earningsYScale(d.earnings))  // .y utgår från earnings, dvs. 0 kr → max kr
-        .attr("height", d => innerHeight - earningsYScale(d.earnings));  // d.earnings används för stapelhöjd
+        .attr("y", d => earningsYScale(d.earnings) + 2)  // .y utgår från earnings, dvs. 0 kr → max kr -Justera staplarnas startposition + höjd
+        .attr("height", d => innerHeight - earningsYScale(d.earnings) - 3);  // d.earnings används för stapelhöjd - Justera staplarnas startposition + höjd
 
 
 
