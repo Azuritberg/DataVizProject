@@ -42,8 +42,6 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
     const yAxis = chartGroup.append("g")
       .call(d3.axisLeft(gigsYScale));
 
-    // Först skapas en d3.axisBottom()-instans med .tickFormat().
-    // Sen anropas .call(xAxis), vilket kör det färdiga objektet med alla inställningar.
     const xAxisGroup = chartGroup.append("g")
       .attr("transform", `translate(0, ${innerHeight})`);
 
