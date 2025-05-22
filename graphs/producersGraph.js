@@ -110,6 +110,22 @@ export function renderGroupedBarChartProducers(){
             .attr("y", d => y(d.value))
             .attr("height", d => innerHeight - y(d.value));
 
+            let graphTitle = svg.append("text")
+                .attr("x", width/2)
+                .attr("y", 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "1rem")
+                .text(() => {
+                    return "Producers gigs broken down by " + mode + " of DJ"
+                });
+            let subtitle = svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "0.8rem")
+            .attr("fill", "#666")
+            .text("between the years 2015 - 2025")
+
         
         }
         function renderLines(lineData, category){
@@ -201,6 +217,22 @@ export function renderGroupedBarChartProducers(){
                     .attr("r", 6);
 
             })
+            let graphTitle = svg.append("text")
+                .attr("x", width/2)
+                .attr("y", 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "1rem")
+                .text(() => {
+                    return Producers.find(x => x.id == specificityMode).name +"'s gigs broken down by " + mode + " of DJ"
+                });
+            let subtitle = svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "0.8rem")
+            .attr("fill", "#666")
+            .text("further divided by year")
+
         }
         render(ethnicties, testData);
 

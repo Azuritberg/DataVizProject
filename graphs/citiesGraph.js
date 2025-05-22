@@ -129,6 +129,22 @@ export function renderGroupedBarChartCities(){
     //     })
     //   .attr("width", xB.bandwidth())
     //   .attr("fill", d => color(d.key));
+
+    let graphTitle = svg.append("text")
+                .attr("x", width/2)
+                .attr("y", 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "1rem")
+                .text(() => {
+                    return "Cities gigs broken down by " + mode + " of DJ"
+                });
+            let subtitle = svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "0.8rem")
+            .attr("fill", "#666")
+            .text("between the years 2015 - 2025")
   }
   function renderLines(lineData, category){
     let data = transformToLineData(lineData, category)
@@ -222,6 +238,21 @@ export function renderGroupedBarChartCities(){
         .delay((_, i) => i * 80)
         .attr("r", 6);
     })
+    let graphTitle = svg.append("text")
+      .attr("x", width/2)
+      .attr("y", 15)
+      .attr("text-anchor", "middle")
+      .attr("font-size", "1rem")
+      .text(() => {
+          return Cities.find(x => x.id == specificityMode).name +"'s gigs broken down by " + mode + " of DJ"
+      });
+    let subtitle = svg.append("text")
+      .attr("x", width / 2)
+      .attr("y", 30)
+      .attr("text-anchor", "middle")
+      .attr("font-size", "0.8rem")
+      .attr("fill", "#666")
+      .text("further divided by year")
   }
   render(ethnicties, testData);
 
