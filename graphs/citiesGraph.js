@@ -1,6 +1,6 @@
 import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
 import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
-import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet} from '../data/auxfunctions.js';
+import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet, getGreekGraphSymbol } from '../data/auxfunctions.js';
 import { Cities } from '../data/data.js';
 
 let ethColors = ["#00F453", "#ACFF58", "#45F5BC"];
@@ -174,7 +174,8 @@ export function renderGroupedBarChartCities(){
           tooltip
           .style("display", "block")
           .html(`
-            <div class="tooltip-header" style="color:${c(d.category)};">${d.category}</div>
+            <div class="tooltip-header" style="color:${c(d.category)};">${d.category[0].toUpperCase() + d.category.slice(1)} : ${getGreekGraphSymbol(d.category)}
+            </div>
             <div><strong>Year</strong>: ${a.year}</div>
             <div><strong>Value</strong>: ${a.value}</div>
           `);
