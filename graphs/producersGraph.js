@@ -95,15 +95,15 @@ export function renderGroupedBarChartProducers(){
                     <div><strong>Group</strong>: ${d.key[0].toUpperCase() + d.key.slice(1)}</div>
                     <div><strong>Value</strong>: ${d.value}</div>
                     `);
-                })
+            })
             .on("mousemove", function(event) {
                 tooltip
                     .style("left", (event.pageX + 15) + "px")
                     .style("top", (event.pageY - 30) + "px");
-                })
+            })
             .on("mouseleave", function() {
                 tooltip.style("display", "none");
-                })
+            })
             .transition()
             .duration(1500)
             .delay((_, i) => i * 100)
@@ -202,15 +202,15 @@ export function renderGroupedBarChartProducers(){
                                 <div><strong>Year</strong>: ${a.year}</div>
                                 <div><strong>Value</strong>: ${a.value}</div>
                             `);
-                            })
+                    })
                     .on("mousemove", function(event) {
                         tooltip
                             .style("left", (event.pageX + 15) + "px")
                             .style("top", (event.pageY - 30) + "px");
-                        })
+                    })
                     .on("mouseleave", function() {
                             tooltip.style("display", "none");
-                        })
+                    })
                     .transition()
                     .duration(1500)
                     .delay((_, i) => i * 80)
