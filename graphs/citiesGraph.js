@@ -19,6 +19,9 @@ export function renderGroupedBarChartCities(){
   let specificityMode = "allCities";
   const svg = d3.select("#chart-cities");
   svg.selectAll("*").remove();
+
+  const tooltip = d3.select("#tooltip-general");
+
   //grab width and height from svg element
   const width = Number(svg.attr("width"));
   const height = Number(svg.attr("height"));
@@ -144,7 +147,18 @@ export function renderGroupedBarChartCities(){
       .attr("d", d => line(d.values))
       .attr("stroke", d=> c(d.category))
       .attr("fill", "none")
-      .attr("stroke-width", 3);
+      .attr("stroke-width", 3)
+      .attr("stroke-dasharray", function() {
+        return this.getTotalLength();
+      })
+      .attr("stroke-dashoffset", function() {
+        return this.getTotalLength();
+      })
+      .transition()
+      .duration(1500)
+      .ease(d3.easeLinear)
+      .attr("stroke-dashoffset", 0);
+
 
     lineGroup.each(function(d){
       d3.select(this)
@@ -154,8 +168,29 @@ export function renderGroupedBarChartCities(){
         .append("circle")
         .attr("cx", a => x(a.year))
         .attr("cy", a => y(a.value))
-        .attr("r", "6")
-        .attr("fill", () => c(d.category));
+        .attr("r", 0)
+        .attr("fill", () => c(d.category))
+        .on("mouseover", function(event, a) {
+          tooltip
+          .style("display", "block")
+          .html(`
+            <div class="tooltip-header" style="color:${c(d.category)};">${d.category}</div>
+            <div><strong>Year</strong>: ${a.year}</div>
+            <div><strong>Value</strong>: ${a.value}</div>
+          `);
+        })
+        .on("mousemove", function(event) {
+          tooltip
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 30) + "px");
+        })
+        .on("mouseleave", function() {
+          tooltip.style("display", "none");
+        })
+        .transition()
+        .duration(1500)
+        .delay((_, i) => i * 80)
+        .attr("r", 6);
     })
   }
   render(ethnicties, testData);
