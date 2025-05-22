@@ -18,6 +18,7 @@ export let datasetTotalEarningsYearByYearEth = [];
 export let datasetTotalEarningsYearByYearGen = [];
 
 
+
 // ==== Creates dataset where each city is shown by it's gig count broken down in terms of each DJs gender and ethinicity ====
 for (const city of Cities) {
     let cityGigs = Gigs.filter(x => x.cityID == city.id);
@@ -34,6 +35,7 @@ for (const city of Cities) {
     for(let i = 0; i < 10; i++){
         let yearsGigs = cityGigs.filter(x => {
             let year = new Date(x.date).getFullYear();
+
             return year == 2015 + i;
         });
         let yearPoint = {
@@ -67,6 +69,7 @@ for (const city of Cities) {
     dataSetCitiesEth.push(dataPoint);
     dataSetCitiesGen.push(dataPoint2);
 }
+console.log(dataSetCitiesEth);
 
 
 //==== Same as above but for producers not cities ====
@@ -119,8 +122,6 @@ for (const producer of Producers) {
     dataSetProducersEth.push(dataPointEth);
     dataSetProducersGen.push(dataPointGen);
 }
-console.log(dataSetProducersEth, dataSetProducersGen);
-console.log(dataSetCitiesEth, dataSetCitiesGen)
 
 
 
@@ -132,6 +133,7 @@ for (const gender of genders) {
         let DJgender = DJs.find(y => y.id == gigDj).gender;
         return DJgender == gender;
     });
+
     let gigEarnings = filteredGigs.map(x => x.djEarnings).reduce((cv, pv) => {return cv + pv}, 0) / filteredGigs.length; 
     let genderedGigs = filteredGigs.length;
     dataSetAvgEarningsGender.push({
@@ -143,6 +145,51 @@ for (const gender of genders) {
         totalGigs : genderedGigs
     });
 }
+
+for(let i = 0; i < 10; i++){
+        
+    let yearGigs = Gigs.filter(x => {
+        let year = new Date(x.date).getFullYear();
+        return year == 2015 + i;
+    });
+    let yearObjEth = {
+        year: 2015 + i,
+        psi: 0,
+        rho: 0,
+        tau: 0
+    }
+    let yearObjGen = {
+        year: 2015 + i,
+        lambda: 0,
+        omicron: 0,
+        theta: 0
+    }
+    for (const gender of genders) {
+        let filteredGigs = yearGigs.filter(x => {
+            let gigDj = x.djID;
+            let DJgender = DJs.find(y => y.id == gigDj).gender;
+            return DJgender == gender;
+        }).map(x => x.djEarnings);
+        const avg = filteredGigs.reduce((cv, pv) => pv + cv, 0) / filteredGigs.length;
+        yearObjGen[gender] = isNaN(avg) ? 0 : avg;
+        
+    }
+    for (const ethinicity of ethnicties) {
+        let filteredGigs = yearGigs.filter(x => {
+            let gigDj = x.djID;
+            let DJethnicity = DJs.find(y => y.id == gigDj).ethnicity;
+            return DJethnicity == ethinicity;
+        }).map(x => x.djEarnings);
+        const avg = filteredGigs.reduce((cv, pv) => pv + cv, 0) / filteredGigs.length;
+        yearObjEth[ethinicity] = isNaN(avg) ? 0 : avg;
+        
+    }
+    datasetTotalEarningsYearByYearEth.push(yearObjEth);
+    datasetTotalEarningsYearByYearGen.push(yearObjGen);
+}
+console.log(datasetTotalEarningsYearByYearEth, datasetTotalEarningsYearByYearGen);
+
+
 for (const ethnicity of ethnicties) {
     let filteredGigs = Gigs.filter(x => {
         let gigDj = x.djID;
@@ -219,8 +266,8 @@ export const producers = [
   ];
   
 
-console.log(dataSetAvgEarningsGender, dataSetAvgEarningsEthnicity);
-console.log(dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
+console.log("TJA",dataSetAvgEarningsGender, dataSetAvgEarningsEthnicity);
+console.log("TJA",dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
 
 
 
