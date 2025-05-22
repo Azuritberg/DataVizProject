@@ -47,89 +47,68 @@ export function renderGigsGraphChart(data, type = "gender", mode = "average") {
       .call(d3.axisBottom(categoryXScale));
 
 
-    // === ENTER/UPDATE/EXIT FÖR STAPLAR ===
-    // Staplar - BARS - Gigs  == Här ritas staplarna ut
-    const gigsBars = chartGroup.selectAll(".bar")
-      .data(data, d => d[type]);
+    // === STAPLAR ===
+   // Staplar - BARS - Gigs  == Här ritas staplarna ut
+    const gigsBars = chartGroup.selectAll(".bar");
+      gigsBars.remove(); // Rensa gamla staplar
 
-    gigsBars.transition()  // UPDATE  transition() körs på befintliga element
-      .duration(1500)
-      .attr("x", d => categoryXScale(d[type]))
-      .attr("width", categoryXScale.bandwidth())
-      .attr("y", d => earningsYScale(d.earnings))
-      .attr("height", d => innerHeight - earningsYScale(d.earnings))
-      .attr("fill", d => colorScale(d[type]));
+      chartGroup.selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", d => categoryXScale(d[type]))
+        .attr("width", categoryXScale.bandwidth())
+        .attr("y", innerHeight)
+        .attr("height", 0)
+        .attr("fill", d => colorScale(d[type]))
+        .on("mouseover", function(event, d) {
+          tooltip
+            .style("display", "block")
+            .html(`
+              <div class="tooltip-header" style="color:${colorScale(d[type])};">
+                ${d[type][0].toUpperCase() + d[type].slice(1)} : ${getGreekGraphSymbol(d[type])}
+              </div>
+              <div><strong>Year</strong> : ${d.year ?? "All time"}</div>
+              <div><strong>Gigs</strong> : ${d.totalGigs.toFixed(0)}</div>
+            `);
+        })
+        .on("mousemove", function(event) {
+          tooltip
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 30) + "px");
+        })
+        .on("mouseleave", function() {
+          tooltip.style("display", "none");
+        })
+        .transition()
+        .duration(1500)
+        .delay((_, i) => i * 100)
+        .style("opacity", 1)
+        .attr("y", d => gigsYScale(d.totalGigs))
+        .attr("height", d => innerHeight - gigsYScale(d.totalGigs));
 
-    gigsBars.enter()  // ENTER  enter() körs på nya element
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", d => categoryXScale(d[type]))  // .x positioneras baserat på kön/etnicitet
-      .attr("width", categoryXScale.bandwidth())  // .height är skillnaden mellan y=0 och earnings 
-      .attr("y", innerHeight)
-      .attr("height", 0)
-      .attr("fill", d => colorScale(d[type]))  // Färg baserat på kategori (kön eller etnicitet)
-      .on("mouseover", function(event, d) {
-        tooltip
-          .style("display", "block")
-          .html(`
-            <div class="tooltip-header" style="color:${colorScale(d[type])};">${d[type][0].toUpperCase() + d[type].slice(1)} : ${getGreekGraphSymbol(d[type])}</div>
-            <div><strong>Year</strong> : ${d.year ?? "All time"}</div>
-            <div><strong>Earnings</strong> : ${d.totalGigs.toFixed(0)}</div>
-          `);
-      })
-      .on("mousemove", function(event) {
-        tooltip
-          .style("left", (event.pageX + 15) + "px")
-          .style("top", (event.pageY - 30) + "px");
-      })
-      .on("mouseleave", function() {
-        tooltip.style("display", "none");
-      })     
-      .transition()
-      .duration(1500)
-      .delay((_, i) => i * 100)
-      .style("opacity", 1)
-      .attr("y", d => gigsYScale(d.totalGigs))   // .y utgår från earnings, dvs. 0 kr → max kr
-      .attr("height", d => innerHeight - gigsYScale(d.totalGigs)); // d.earnings används för stapelhöjd
+      // === TEXT OVANFÖR STAPLAR ===
+      const gigsLabels = chartGroup.selectAll(".bar-label");
+        gigsLabels.remove(); // Rensa gamla etiketter
 
-    gigsBars.exit()   // EXIT
-      .transition()
-      .duration(800)
-      .style("opacity", 0)
-      .remove();
-
-
-    // === ENTER/UPDATE/EXIT FÖR TEXTER === // === TEXT OVANFÖR STAPLAR ===
-    const gigsLabels = chartGroup.selectAll(".bar-label")
-      .data(data, d => d[type]);
-
-    gigsLabels.transition()
-      .duration(1500)
-      .attr("x", d => categoryXScale(d[type]) + categoryXScale.bandwidth() / 2)
-      .attr("y", d => earningsYScale(d.earnings) - 10)
-      .text(d => d.totalGigs.toFixed(0));
-
-    gigsLabels.enter()
-      .append("text")
-      .attr("class", "bar-label")
-      .attr("x", d => categoryXScale(d[type]) + categoryXScale.bandwidth() / 2)
-      .attr("y", innerHeight - 5)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
-      .attr("fill", "#333")
-      .style("opacity", 0)
-      .text(d => d.totalGigs.toFixed(0)) // eller .toFixed(1) om du vill ha decimal
-      .transition()
-      .duration(1500)
-      .delay((_, i) => i * 100)  // Stagger för att komma en efter en
-      .style("opacity", 1)
-      .attr("y", d => gigsYScale(d.totalGigs) - 10);  // text lite ovanför stapeln
-
-    gigsLabels.exit()
-      .transition()
-      .duration(800)
-      .style("opacity", 0)
-      .remove();
+        chartGroup.selectAll(".bar-label")
+          .data(data)
+          .enter()
+          .append("text")
+          .attr("class", "bar-label")
+          .attr("x", d => categoryXScale(d[type]) + categoryXScale.bandwidth() / 2)
+          .attr("y", innerHeight - 5)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "12px")
+          .attr("fill", "#333")
+          .style("opacity", 0)
+          .text(d => d.totalGigs.toFixed(0))
+          .transition()
+          .duration(1500)
+          .delay((_, i) => i * 100)
+          .style("opacity", 1)
+          .attr("y", d => gigsYScale(d.totalGigs) - 10);
 
 
   } else {

@@ -55,7 +55,7 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
     // Y-skalan går från 0 till högsta värdet i earnings.
     // Notera att SVG-axeln går från top → bottom, så range är omvänt!
     const earningsYScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.earnings)])
+      .domain([0, d3.max(data, (d, i, nodes) => d.earnings)])  //(d, i, nodes)
       .nice() // Rundar av skalans max-värde ex. 50.5 blir 51
       .range([innerHeight, 0]);
 
@@ -71,96 +71,71 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
       .call(d3.axisBottom(categoryXScale));
 
 
-    // === UPDATE/ENTER/EXIT FÖR STAPLAR ===
-    // På .data(data) på ett selection, får tre möjliga "flöden":
-    // Update – redan existerande element som matchar nya data.
-    // Enter – ny data som saknar element → D3 skapar nya element.
-    // Exit – gamla element som inte längre har någon data → tas bort.
     // Staplar - BARS - Earnings  == Här ritas staplarna ut
     const earningsBars = chartGroup.selectAll(".bar")
       .data(data, d => d[type]);  // .data() binder ny data till befintliga staplar
+      earningsBars.remove(); // Rensa gamla staplar
 
-    // Update (uppdatera existerande staplar)
-    earningsBars.transition()  // UPDATE  transition() körs på befintliga element
-      .duration(1500)
-      .attr("x", d => categoryXScale(d[type]))
-      .attr("width", categoryXScale.bandwidth())
-      .attr("y", d => earningsYScale(d.earnings))
-      .attr("height", d => innerHeight - earningsYScale(d.earnings))
-      .attr("fill", d => colorScale(d[type]));
-
-    // Enter (skapa nya staplar)
-    earningsBars.enter()  // ENTER  enter() körs på nya element
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", d => categoryXScale(d[type]))  // .x positioneras baserat på kön/etnicitet
-      .attr("width", categoryXScale.bandwidth())  // .height är skillnaden mellan y=0 och earnings 
-      .attr("y", innerHeight)  // Börjar längst ner
-      .attr("height", 0)       // Börjar med höjd 0
-      .attr("fill", d => colorScale(d[type]))  // Färg baserat på kategori (kön eller etnicitet)
-      .on("mouseover", function(event, d) {
-        tooltip
-          .style("display", "block")
-          .html(`
-            <div class="tooltip-header" style="color:${colorScale(d[type])};">${d[type][0].toUpperCase() + d[type].slice(1)} : ${getGreekGraphSymbol(d[type])}</div>
-            <div><strong>Year</strong> : ${d.year ?? "All time"}</div>
-            <div><strong>Earnings</strong> : ${d.earnings.toFixed(0)}</div>
-          `);
-      })
-      .on("mousemove", function(event) {
-        tooltip
-          .style("left", (event.pageX + 15) + "px")
-          .style("top", (event.pageY - 30) + "px");
-      })
-      .on("mouseleave", function() {
-        tooltip.style("display", "none");
-      })
-      .transition()
-      .duration(1500)
-      .delay((_, i) => i * 100)
-      .style("opacity", 1)
-      .attr("y", d => earningsYScale(d.earnings))   // .y utgår från earnings, dvs. 0 kr → max kr
-      .attr("height", d => innerHeight - earningsYScale(d.earnings)); // d.earnings används för stapelhöjd
-
-    earningsBars.exit()   // EXIT
-      .transition()
-      .duration(800)
-      .style("opacity", 0)
-      .remove();
+      chartGroup.selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", d => categoryXScale(d[type]))  // .x positioneras baserat på kön/etnicitet
+        .attr("width", categoryXScale.bandwidth())  // .height är skillnaden mellan y=0 och earnings 
+        .attr("y", innerHeight)    // Börjar längst ner
+        .attr("height", 0)         // Börjar med höjd 0
+        .attr("fill", d => colorScale(d[type]))  // Färg baserat på kategori (kön eller etnicitet)
+        .on("mouseover", function(event, d) {
+          tooltip
+            .style("display", "block")
+            .html(`
+              <div class="tooltip-header" style="color:${colorScale(d[type])};">${d[type][0].toUpperCase() + d[type].slice(1)} : ${getGreekGraphSymbol(d[type])}</div>
+              <div><strong>Year</strong> : ${d.year ?? "All time"}</div>
+              <div><strong>Earnings</strong> : ${d.earnings.toFixed(0)}</div>
+            `);
+        })
+        .on("mousemove", function(event) {
+          tooltip
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 30) + "px");
+        })
+        .on("mouseleave", function() {
+          tooltip.style("display", "none");
+        })
+        .transition()
+        .duration(1500)
+        .delay((_, i) => i * 100)
+        .style("opacity", 1)
+        .attr("y", d => earningsYScale(d.earnings))  // .y utgår från earnings, dvs. 0 kr → max kr
+        .attr("height", d => innerHeight - earningsYScale(d.earnings));  // d.earnings används för stapelhöjd
 
 
-    // === ENTER/UPDATE/EXIT FÖR TEXTER === // === TEXT OVANFÖR STAPLAR ===
+
+
+      // === ENTER/UPDATE/EXIT FÖR TEXTER === // === TEXT OVANFÖR STAPLAR ===
     const earningsLabels = chartGroup.selectAll(".bar-label")
       .data(data, d => d[type]);
+      earningsLabels.remove(); // Rensa gamla staplar
 
-    earningsLabels.transition()
-      .duration(1500)
-      .attr("x", d => categoryXScale(d[type]) + categoryXScale.bandwidth() / 2)
-      .attr("y", d => earningsYScale(d.earnings) - 10)
-      .text(d => d.earnings.toFixed(0));
-
-    earningsLabels.enter()
-      .append("text")
-      .attr("class", "bar-label")
-      .attr("x", d => categoryXScale(d[type]) + categoryXScale.bandwidth() / 2)
-      .attr("y", innerHeight - 5)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
-      .attr("fill", "#333")
-      .style("opacity", 0)
-      .text(d => d.earnings.toFixed(0)) // eller .toFixed(1) om du vill ha decimal
-      .transition()
-      .duration(1500)
-      .delay((_, i) => i * 100)  // Stagger för att komma en efter en
-      .style("opacity", 1)
-      .attr("y", d => earningsYScale(d.earnings) - 10);  // text lite ovanför stapeln
-
-    earningsLabels.exit()
-      .transition()
-      .duration(800)
-      .style("opacity", 0)
-      .remove();
-
+      chartGroup.selectAll(".bar-label")
+        .data(data)
+        .enter()  // Enter (skapa nya staplar)
+        .append("text")
+        .attr("class", "bar-label")
+        .attr("x", d => categoryXScale(d[type]) + categoryXScale.bandwidth() / 2)
+        .attr("y", innerHeight - 5)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("fill", "#333")
+        .style("opacity", 0)
+        .text(d => d.earnings.toFixed(0))  // eller .toFixed(1) om du vill ha decimaler
+        .transition()
+        .duration(1500)
+        .delay((_, i) => i * 100)  // Stagger för att komma en efter en
+        .style("opacity", 1)
+        .attr("y", d => earningsYScale(d.earnings) - 10);  // text lite ovanför stapeln
+  
       // === LINJEDIAGRAM ===
       // Om mode === "time", ritar vi ett linjediagram som visar utvecklingen 
       // av inkomst (eller annan variabel) över tid, för varje kategori (kön eller etnicitet).    
