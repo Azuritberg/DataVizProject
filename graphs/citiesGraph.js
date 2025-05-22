@@ -26,7 +26,7 @@ export function renderGroupedBarChartCities(){
   const width = Number(svg.attr("width"));
   const height = Number(svg.attr("height"));
   //define margin stuff
-  const margin = {top: 50, right: 30, bottom: 60, left: 30};
+  const margin = {top: 50, right: 20, bottom: 70, left: 30};
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -240,7 +240,7 @@ export function renderGroupedBarChartCities(){
       });
     let subtitle = svg.append("text")
       .attr("x", width / 2)
-      .attr("y", 30)
+      .attr("y", 32)
       .attr("text-anchor", "middle")
       .attr("font-size", "0.8rem")
       .attr("fill", "#666")
