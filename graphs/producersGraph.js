@@ -1,6 +1,6 @@
 import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
 import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
-import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet} from '../data/auxfunctions.js';
+import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet, getGreekGraphSymbol } from '../data/auxfunctions.js';
 import { Cities, Producers } from '../data/data.js';
 
 let ethColors = ["#00F453", "#ACFF58", "#45F5BC"];
@@ -81,13 +81,34 @@ export function renderGroupedBarChartProducers(){
             .data(d => type.map(key => ({key: key, value: d[key]})))
             .enter()
             .append("rect")
-                .attr("x", d => xB(d.key))
-                .attr("y", d => y(d.value))
-                .attr("height", d => {
-                    return innerHeight - y(d.value)
+            .attr("class", "bar")
+            .attr("x", d => xB(d.key))
+            .attr("width", xB.bandwidth())
+            .attr("y", innerHeight)
+            .attr("height", 0)
+            .attr("fill", d => color(d.key))
+            .on("mouseover", function(event, d) {
+                tooltip
+                    .style("display", "block")
+                    .html(`
+                    <div class="tooltip-header" style="color:${color(d.key)};">${d.key[0].toUpperCase() + d.key.slice(1)} : ${getGreekGraphSymbol(d.key)}</div>
+                    <div><strong>Group</strong>: ${d.key}</div>
+                    <div><strong>Value</strong>: ${d.value}</div>
+                    `);
                 })
-                .attr("width", xB.bandwidth())
-                .attr("fill", d => color(d.key));
+            .on("mousemove", function(event) {
+                tooltip
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - 30) + "px");
+                })
+            .on("mouseleave", function() {
+                tooltip.style("display", "none");
+                })
+            .transition()
+            .duration(1500)
+            .delay((_, i) => i * 100)
+            .attr("y", d => y(d.value))
+            .attr("height", d => innerHeight - y(d.value));
 
         
         }
@@ -157,22 +178,23 @@ export function renderGroupedBarChartProducers(){
                     .attr("fill", () => c(d.category))
                     .attr("fill", () => c(d.category))
                     .on("mouseover", function(event, a) {
-                    tooltip
-                    .style("display", "block")
-                    .html(`
-                        <div class="tooltip-header" style="color:${c(d.category)};">${d.category}</div>
-                        <div><strong>Year</strong>: ${a.year}</div>
-                        <div><strong>Value</strong>: ${a.value}</div>
-                    `);
-                    })
+                        tooltip
+                            .style("display", "block")
+                            .html(`
+                                <div class="tooltip-header" style="color:${c(d.category)};">${d.category[0].toUpperCase() + d.category.slice(1)} : ${getGreekGraphSymbol(d.category)}
+                                </div>    
+                                <div><strong>Year</strong>: ${a.year}</div>
+                                <div><strong>Value</strong>: ${a.value}</div>
+                            `);
+                            })
                     .on("mousemove", function(event) {
-                    tooltip
-                        .style("left", (event.pageX + 15) + "px")
-                        .style("top", (event.pageY - 30) + "px");
-                    })
+                        tooltip
+                            .style("left", (event.pageX + 15) + "px")
+                            .style("top", (event.pageY - 30) + "px");
+                        })
                     .on("mouseleave", function() {
-                    tooltip.style("display", "none");
-                    })
+                            tooltip.style("display", "none");
+                        })
                     .transition()
                     .duration(1500)
                     .delay((_, i) => i * 80)
