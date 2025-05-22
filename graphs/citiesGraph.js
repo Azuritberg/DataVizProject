@@ -1,5 +1,5 @@
 import { dataSetCitiesEth, dataSetCitiesGen, dataSetProducersEth, dataSetProducersGen, dataSetAvgEarningsEthnicity, dataSetAvgEarningsGender, dataSetTotalGigsEthnicity, dataSetTotalGigsGender } from '../data/dataInit.js';
-import { cities, producers, genders, ethnicties } from '../data/datainit.js';
+import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
 import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet} from '../data/auxfunctions.js';
 import { Cities } from '../data/data.js';
 

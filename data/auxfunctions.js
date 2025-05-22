@@ -1,4 +1,4 @@
-import { dataSetAvgEarningsEthnicity, ethnicties , dataSetCitiesEth, genders, dataSetCitiesGen} from "./datainit.js";
+//import { dataSetAvgEarningsEthnicity, ethnicties , dataSetCitiesEth, genders, dataSetCitiesGen} from "./datainit.js";
 
 // ==== Functions ====
 export function getMaxValueDataset(type, dataset) {
@@ -30,7 +30,7 @@ export function maxValueLineSet(type, dataset){
   }
   return ymax;
 }
-export function combineGroups(type, data){
+/* export function combineGroups(type, data){
     let a = type[0],b = type[1],c = type[2];
     
     //city of cities
@@ -51,8 +51,7 @@ export function combineGroups(type, data){
         returnData.push(obj);
     }
     return returnData;
-}
-console.log(combineGroups(ethnicties, dataSetCitiesEth));
+} */
   
   
   export function yearsToAllTimeDataset(type, type2, dataset) {
