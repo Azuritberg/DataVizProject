@@ -36,6 +36,7 @@ export function renderGroupedBarChartProducers(){
         .range([0, innerWidth])
         .padding(0.2);
     function render(type){
+        
         svg.selectAll("*").remove();
         if(type == ethnicties){
             testData = yearsToAllTimeDataset(ethnicties, producers, dataSetProducersEth);
