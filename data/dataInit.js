@@ -209,17 +209,29 @@ for(let i = 0; i < 10; i++){
 
 // === DATA ARRAYS ===
 export const cities = [
-    "Sao Adão", "Agrabah", "Alphaville", "Asteroid City", "Atlantika", "Bagdogski",
-    "Belleville", "Brightburn", "Chong Guo", "Ciudad Encantada", "Dunauvarosz",
-    "Santo Tome", "Sunnydale", "Pokyo", "Rimini", "Moesko", "Mos Eisley", "Kaabuli",
-    "Karatas", "Kattstad", "Khansaar", "Kosmolac", "Krzystanopolis", "Ville Rose"
-  ];
+  "Agrabah", "Alphaville", "Asteroid City", "Atlantika", "Bagdogski", "Belleville",
+  "Brightburn", "Chong Guo", "Ciudad Encantada", "Dunauvarosz", "Kaabuli", "Karatas",
+  "Kattstad", "Khansaar", "Kosmolac", "Krzystanopolis", "Moesko", "Mos Eisley",
+  "Pokyo", "Rimini", "Sao Adão", "Santo Tome", "Sunnydale", "Ville Rose"
+];
+
   
 export const producers = [
-    "Banzai AB", "Festen AB", "Finliret AB", "Gigskaparna", "Nattmingel AB",
-    "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
-  ];
+  "Banzai AB", "Festen AB", "Finliret AB", "Gigskaparna", "Nattmingel AB",
+  "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
+];
+
+// export const producers = [
+//     "Banzai AB", "Festen AB", "Finliret AB", "Gigskaparna", "Nattmingel AB",
+//     "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
+//   ];
 
 
 
 
+// export const cities = [
+//     "Sao Adão", "Agrabah", "Alphaville", "Asteroid City", "Atlantika", "Bagdogski",
+//     "Belleville", "Brightburn", "Chong Guo", "Ciudad Encantada", "Dunauvarosz",
+//     "Santo Tome", "Sunnydale", "Pokyo", "Rimini", "Moesko", "Mos Eisley", "Kaabuli",
+//     "Karatas", "Kattstad", "Khansaar", "Kosmolac", "Krzystanopolis", "Ville Rose"
+//   ];
