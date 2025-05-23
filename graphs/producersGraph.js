@@ -9,9 +9,6 @@ let testData = yearsToAllTimeDataset(ethnicties, producers, dataSetProducersEth)
 let ymax = getMaxValueDatasetOverall(testData, ethnicties);
 
 export function renderGroupedBarChartProducers(){
-    console.log("hej");
-    
-
     d3.select(".btnPro--ethnicity").classed("pressed", true);
     d3.select(".btnPro--ethnicity").classed("pressedEth", true);
     let groups = ethnicties;

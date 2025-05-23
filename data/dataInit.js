@@ -69,12 +69,10 @@ for (const city of Cities) {
     dataSetCitiesEth.push(dataPoint);
     dataSetCitiesGen.push(dataPoint2);
 }
-console.log(dataSetCitiesEth);
 
 
 //==== Same as above but for producers not cities ====
 for (const producer of Producers) {
-    console.log(producer.id)
     let producerGigs = Gigs.filter(x => {return x.producerID == producer.id});
     let dataPointEth = {
         name: producer.name,
@@ -221,10 +219,6 @@ export const producers = [
     "Banzai AB", "Festen AB", "Finliret AB", "Gigskaparna", "Nattmingel AB",
     "Neverending AB", "No Mind AB", "Trance AB", "Xtas Produktioner"
   ];
-  
-
-console.log("TJA",dataSetAvgEarningsGender, dataSetAvgEarningsEthnicity);
-console.log("TJA",dataSetTotalGigsGender, dataSetTotalGigsEthnicity);
 
 
 

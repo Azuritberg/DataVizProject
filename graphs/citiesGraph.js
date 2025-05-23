@@ -7,7 +7,6 @@ let ethColors = [ "#ACFF58","#45F5BC", "#00F453"];
 let genColors = ["#BE71F5", "#5850EE", "#F034B8"];
 let testData = yearsToAllTimeDataset(ethnicties, cities, dataSetCitiesEth);
 let ymax = getMaxValueDatasetOverall(testData, ethnicties);
-console.log(ymax);
 // GROUPED BAR CHART
 export function renderGroupedBarChartCities(){
 
@@ -38,7 +37,6 @@ export function renderGroupedBarChartCities(){
   
 
   function render(type) {
-    console.log(testData);
     svg.selectAll("*").remove();
     if(type == ethnicties){
         testData = yearsToAllTimeDataset(ethnicties, cities, dataSetCitiesEth);
@@ -97,7 +95,7 @@ export function renderGroupedBarChartCities(){
     .attr("x", d => xB(d.key))
     .attr("width", xB.bandwidth())
     .attr("y", innerHeight)
-    .attr("height", 0)
+    .attr("height", 0)//height 0
     .attr("fill", d => color(d.key))
     .on("mouseover", function(event, d) {
       tooltip
@@ -117,9 +115,9 @@ export function renderGroupedBarChartCities(){
       tooltip.style("display", "none");
     })
     .transition()
-    .duration(1500)
-    .delay((_, i) => i * 100)
-    .attr("y", d => y(d.value))
+    .duration(1500)//define transition
+    .delay((d, i) => i * 100)
+    .attr("y", d => y(d.value))//set height to real value so we get a cute animation
     .attr("height", d => innerHeight - y(d.value));
 
     let graphTitle = svg.append("text")
@@ -140,7 +138,6 @@ export function renderGroupedBarChartCities(){
   }
   function renderLines(lineData, category){
     let data = transformToLineData(lineData, category)
-    console.log(data);
     svg.selectAll("*").remove();
     let ymax = maxValueLineSet(category, data);
     let x = d3.scalePoint()
@@ -185,7 +182,7 @@ export function renderGroupedBarChartCities(){
       .attr("stroke", d=> c(d.category))
       .attr("fill", "none")
       .attr("stroke-width", 3)
-      .attr("stroke-dasharray", function() {
+      .attr("stroke-dasharray", function() {//we set stroke offset so the graph is hidden
         return this.getTotalLength();
       })
       .attr("stroke-dashoffset", function() {
@@ -194,9 +191,9 @@ export function renderGroupedBarChartCities(){
       .transition()
       .duration(1500)
       .ease(d3.easeLinear)
-      .attr("stroke-dashoffset", 0);
+      .attr("stroke-dashoffset", 0);//transiton the ofset to 0 so the graph looks like it's growing from left to right!
 
-
+      //adds the balls and gives them tooltips and animates them and stuff
     lineGroup.each(function(d){
       d3.select(this)
         .selectAll("circle")
@@ -205,7 +202,7 @@ export function renderGroupedBarChartCities(){
         .append("circle")
         .attr("cx", a => x(a.year))
         .attr("cy", a => y(a.value))
-        .attr("r", 0)
+        .attr("r", 0)//first it's 0
         .attr("fill", () => c(d.category))
         .on("mouseover", function(event, a) {
           tooltip
@@ -225,9 +222,9 @@ export function renderGroupedBarChartCities(){
         .on("mouseleave", function() {
           tooltip.style("display", "none");
         })
-        .transition()
+        .transition()//transition so they grow cutley
         .duration(2500)
-        .delay((_, i) => i * 80)
+        .delay((d, i) => i * 80)
         .attr("r", 6);
     })
     let graphTitle = svg.append("text")
@@ -302,7 +299,6 @@ export function renderGroupedBarChartCities(){
             d3.selectAll(".btn-city").classed("pressedGen", false);
             d3.selectAll(".btn-city").classed("pressedEth", false);
             specificityMode = "allCities"
-            console.log(specificityMode, mode)
             if(mode == "ethnicity"){
               render(ethnicties, testData);
             } else {
@@ -316,18 +312,15 @@ export function renderGroupedBarChartCities(){
             event.target.classList.add("pressed");
             
             specificityMode = event.target.id;
-            console.log(specificityMode, mode)
             let lineData;
             if(mode == "ethnicity"){
                 event.target.classList.add("pressedEth");
                 //render line based on ethnicity
-                console.log("mode is " + specificityMode)
                 lineData = dataSetCitiesEth.find(x => x.id == specificityMode).data;
                 renderLines(lineData, ethnicties)
             } else if(mode == "gender") {
                 event.target.classList.add("pressedGen");
                 //render line based on gender
-                console.log("mode is " + mode)
                 lineData = dataSetCitiesGen.find(x => x.id == specificityMode).data;
                 renderLines(lineData, genders);
             }
@@ -335,7 +328,6 @@ export function renderGroupedBarChartCities(){
 
 
     });
-  console.log(cityButtons);
 
 /*   let selection = svg.selectAll("rect")
     .data(testData)

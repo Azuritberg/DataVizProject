@@ -122,7 +122,7 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
         })
         .transition()
         .duration(1500)
-        .delay((_, i) => i * 100)
+        .delay((d, i) => i * 100)
         .style("opacity", 1)
         .attr("y", d => earningsYScale(d.earnings) + 2)  // .y utgår från earnings, dvs. 0 kr → max kr -Justera staplarnas startposition + höjd
         .attr("height", d => innerHeight - earningsYScale(d.earnings) - 3);  // d.earnings används för stapelhöjd - Justera staplarnas startposition + höjd
@@ -170,7 +170,6 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
     // Vi gör om årsbaserad tabell-data till en struktur per kategori: 
     // Input: Vi omformar data från [{ year: 2015, lambda: 300, ... }, ...]
     // Output: till ett format per kategori: [{ category: "lambda", values: [ { year: ..., value: ... }, ... ] }]
-    console.log(data);
     const earningsLineData = transformToLineData(data, earningsCategories);
 
     // === SKALA FÖR X-AXELN (år = tidslinje) ===
@@ -208,7 +207,6 @@ export function renderEarningsGraphChart(data, type = "gender", mode = "average"
 
     // // === LINJER ===
     // // Ritar en path-linje => för varje kategori (t.ex. "lambda", "theta" ...) ritas en linje baserat på den data vi har.
-    console.log(earningsLineData);
     const earningsLines = chartGroup.selectAll(".line")
       .data(earningsLineData) // en array med ett objekt per kategori (kön eller etnicitet)
       .enter()  // ett utrymme att skapa nya element för varje datapost => .enter() returnerar ett utrymme som ett visuellt element
@@ -343,10 +341,6 @@ export function updateEarningsChart() {
   document.querySelectorAll(modeEarningsBtnClass).forEach(btn => {
     btn.classList.add(earningActiveClass, "active");
   });
-    
-  console.log(datasetTotalEarningsYearByYearEth, datasetTotalEarningsYearByYearGen);
-  
-  
     // === Välj data baserat på val ===
     let data;
   
@@ -360,7 +354,6 @@ export function updateEarningsChart() {
         : datasetTotalEarningsYearByYearEth;
     }
     // === Rendera diagrammet ===
-    console.log(data);
     renderEarningsGraphChart(data, currentTypeGraphEarnings, currentModeGraphEarnings);
   }
 
