@@ -3,7 +3,7 @@ import { cities, producers, genders, ethnicties } from '../data/dataInit.js';
 import { yearsToAllTimeDataset,  transformToLineData, getMaxValueDatasetOverall, maxValueLineSet, getGreekGraphSymbol } from '../data/auxfunctions.js';
 import { Cities } from '../data/data.js';
 
-let ethColors = ["#00F453", "#ACFF58", "#45F5BC"];
+let ethColors = [ "#ACFF58","#45F5BC", "#00F453"];
 let genColors = ["#BE71F5", "#5850EE", "#F034B8"];
 let testData = yearsToAllTimeDataset(ethnicties, cities, dataSetCitiesEth);
 let ymax = getMaxValueDatasetOverall(testData, ethnicties);
