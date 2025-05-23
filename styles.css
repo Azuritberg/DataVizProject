@@ -400,16 +400,20 @@ display: flex;
 
 #tooltip-general {
   position: absolute;
+  display: none;
+  padding: 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  pointer-events: none;
   background-color: rgba(250, 250, 250, 0.85);   /*var(--primary-btnActiv-grey) */
   border: 1px solid var(--primary-btn-border-grey);
-  border-radius: 6px;
-  padding: 12px;
-  pointer-events: none;
   font-family: 'Rethink Sans', sans-serif;
-  font-size: 0.9rem;
-  display: none;
-  z-index: 10;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 10;
+  /* opacity: 0;
+  transform: translateY(0px);
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  z-index: 9999; z-index: 10; */
 }
 
 #tooltip-general .tooltip-header {

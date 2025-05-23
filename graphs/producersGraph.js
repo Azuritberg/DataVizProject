@@ -27,7 +27,7 @@ export function renderGroupedBarChartProducers(){
     const width = Number(svg.attr("width"));
     const height = Number(svg.attr("height"));
     //define margin stuff
-    const margin = {top: 50, right: 20, bottom: 50, left: 30};
+    const margin = {top: 50, right: 20, bottom: 50, left: 40};
     const innerWidth = width - margin.right - margin.left;
     const innerHeight = height - margin.top - margin.bottom;
 
